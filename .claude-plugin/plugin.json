@@ -1,0 +1,14 @@
+{
+  "name": "unity-craft",
+  "description": "Safe Unity scene manipulation via CRAFT MCP tools",
+  "version": "0.1.0",
+  "author": {
+    "name": "Musab Kara",
+    "url": "https://github.com/SkyWalker2506"
+  },
+  "category": "development",
+  "keywords": ["unity", "gamedev", "mcp", "craft", "transactions"],
+  "requires": {
+    "mcpServers": ["unity"]
+  }
+}
