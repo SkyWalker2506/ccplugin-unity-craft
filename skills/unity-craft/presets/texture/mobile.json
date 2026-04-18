@@ -1,0 +1,55 @@
+{
+  "preset_name": "mobile",
+  "version": "1.0",
+  "applies_to": "TextureImporter",
+  "target_platform": "mobile",
+  "description": "Mobile diffuse/albedo textures. ASTC 6x6 compression for iOS/Android.",
+  "overrides": {
+    "textureType": "Default",
+    "textureShape": "2D",
+    "maxTextureSize": 1024,
+    "mipmaps": true,
+    "mipmapEnabled": true,
+    "mipmapFilter": "Linear",
+    "mipmapFadeDistanceStart": 1,
+    "mipmapFadeDistanceEnd": 3,
+    "sRGBTexture": true,
+    "wrapModeU": "Repeat",
+    "wrapModeV": "Repeat",
+    "wrapModeW": "Repeat",
+    "filterMode": "Trilinear",
+    "anisotropicLevel": 4,
+    "platformOverrides": {
+      "Android": {
+        "format": "ASTC_6x6",
+        "maxTextureSize": 1024,
+        "textureCompression": "Compressed",
+        "compressionQuality": 50,
+        "crunchCompression": true
+      },
+      "iPhone": {
+        "format": "ASTC_6x6",
+        "maxTextureSize": 1024,
+        "textureCompression": "Compressed",
+        "compressionQuality": 50,
+        "crunchCompression": true
+      }
+    },
+    "spritePackingTag": "",
+    "readable": false,
+    "streamingMipmaps": true,
+    "streamingMipmapsPriority": 0,
+    "ignoreMipmapLimit": false
+  },
+  "estimated_impact": {
+    "memory_reduction": "70-80% (RGBA32 → ASTC 6x6)",
+    "vram_reduction": "75-85%",
+    "visual_quality_preservation": "PSNR > 38dB"
+  },
+  "validation": {
+    "check_texture_format": "Profiler → Memory → Texture Category shows ASTC",
+    "check_size": "maxTextureSize matches target platform (1024 for mobile)",
+    "check_mipmaps": "Generation enabled for LOD performance"
+  },
+  "applied_via": "Craft_SetTextureImporter platform override"
+}

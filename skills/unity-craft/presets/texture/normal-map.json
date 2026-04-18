@@ -1,0 +1,67 @@
+{
+  "preset_name": "normal-map",
+  "version": "1.0",
+  "applies_to": "TextureImporter",
+  "target_platform": "multi-platform",
+  "description": "Normal map textures. ASTC 6x6 for mobile (linear color space), BC5 for desktop.",
+  "overrides": {
+    "textureType": "NormalMap",
+    "textureShape": "2D",
+    "maxTextureSize": 1024,
+    "mipmaps": true,
+    "mipmapEnabled": true,
+    "mipmapFilter": "Linear",
+    "sRGBTexture": false,
+    "wrapModeU": "Repeat",
+    "wrapModeV": "Repeat",
+    "wrapModeW": "Repeat",
+    "filterMode": "Trilinear",
+    "anisotropicLevel": 4,
+    "normalImportType": "Standard",
+    "normalMapFilter": "Standard",
+    "platformOverrides": {
+      "Android": {
+        "format": "ASTC_6x6",
+        "maxTextureSize": 1024,
+        "textureCompression": "Compressed",
+        "compressionQuality": 50,
+        "crunchCompression": true
+      },
+      "iPhone": {
+        "format": "ASTC_6x6",
+        "maxTextureSize": 1024,
+        "textureCompression": "Compressed",
+        "compressionQuality": 50,
+        "crunchCompression": true
+      },
+      "Standalone": {
+        "format": "BC5",
+        "maxTextureSize": 1024,
+        "textureCompression": "Compressed",
+        "compressionQuality": 50,
+        "crunchCompression": false
+      }
+    },
+    "spritePackingTag": "",
+    "readable": false,
+    "streamingMipmaps": true,
+    "streamingMipmapsPriority": 0,
+    "ignoreMipmapLimit": false
+  },
+  "estimated_impact": {
+    "memory_reduction": "75-85% (RGBA32 → ASTC 6x6 mobile, BC5 desktop)",
+    "vram_reduction": "80-90%",
+    "visual_quality_preservation": "PSNR > 36dB (normal maps allow slight quality loss)"
+  },
+  "critical_notes": {
+    "color_space": "MUST be Linear (sRGBTexture: false) for normal maps",
+    "not_srgb": "Setting sRGB=true breaks normal calculations",
+    "bc5_quality": "BC5 superior to BC1 for normal details"
+  },
+  "validation": {
+    "check_color_space": "Inspector shows sRGB OFF for normal maps",
+    "check_format": "Android/iPhone: ASTC_6x6 (Linear), Standalone: BC5",
+    "check_mipmaps": "Enabled for proper normal detail at distance"
+  },
+  "applied_via": "Craft_SetTextureImporter normal map override"
+}

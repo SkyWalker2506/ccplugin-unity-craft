@@ -1,0 +1,57 @@
+{
+  "preset_name": "mobile-low",
+  "version": "1.0",
+  "target_platform": "mobile",
+  "device_class": "entry-level",
+  "fps_target": 30,
+  "memory_budget_mb": 512,
+  "description": "Entry-level Android/iOS (Mali/Adreno GPUs, <1GB RAM). Extreme optimization for budget phones.",
+  "quality_settings": {
+    "pixelLightCount": 1,
+    "shadowResolution": "Low",
+    "shadowDistance": 25,
+    "antiAliasing": 0,
+    "vSyncCount": 0,
+    "masterTextureLimit": 1,
+    "anisotropicFiltering": "Disable",
+    "lodBias": 2.0,
+    "softParticles": false,
+    "realtimeReflectionProbes": false,
+    "billboardsFaceCameraPosition": false
+  },
+  "render_pipeline_asset_overrides": {
+    "URP": {
+      "renderScale": 0.75,
+      "shadowDistance": 25,
+      "shadowResolution": "Low",
+      "shadowCascadeCount": 1,
+      "msaaSampleCount": 1,
+      "maxVisibleLights": 4,
+      "perObjectLimitAdditionalLights": 1,
+      "supportsDynamicResolution": true,
+      "dynamicResolutionMinPercentage": 0.5,
+      "dynamicResolutionMaxPercentage": 1.0,
+      "screenSpaceShadows": false,
+      "decalTech": "ScreenSpace"
+    },
+    "HDRP": {
+      "note": "Not recommended for mobile-low; use URP instead"
+    }
+  },
+  "physics_settings": {
+    "defaultSolverIterations": 2,
+    "defaultSolverVelocityIterations": 1,
+    "fixedDeltaTime": 0.033,
+    "autoSyncTransforms": false
+  },
+  "ui_settings": {
+    "canvasScalabilityTarget": "HighDPI",
+    "dynamicPixelsPerPoint": false
+  },
+  "estimated_impact": {
+    "fps_improvement": "20-30% vs. default",
+    "memory_reduction": "35-40%",
+    "draw_call_reduction": "15-20%"
+  },
+  "applied_via": "Craft_ModifyComponent + URP asset override"
+}

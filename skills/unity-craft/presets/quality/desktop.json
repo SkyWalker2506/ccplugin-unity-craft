@@ -1,0 +1,69 @@
+{
+  "preset_name": "desktop",
+  "version": "1.0",
+  "target_platform": "desktop",
+  "device_class": "gaming-pc",
+  "fps_target": 60,
+  "memory_budget_mb": 4096,
+  "description": "Gaming PC (GTX1080+, RTX series, 8GB+ RAM). High-quality visuals at 60+ fps.",
+  "quality_settings": {
+    "pixelLightCount": 4,
+    "shadowResolution": "High",
+    "shadowDistance": 150,
+    "antiAliasing": 4,
+    "vSyncCount": 1,
+    "masterTextureLimit": 0,
+    "anisotropicFiltering": "ForceEnable",
+    "lodBias": 0.7,
+    "softParticles": true,
+    "realtimeReflectionProbes": true,
+    "billboardsFaceCameraPosition": true
+  },
+  "render_pipeline_asset_overrides": {
+    "URP": {
+      "renderScale": 1.0,
+      "shadowDistance": 150,
+      "shadowResolution": "High",
+      "shadowCascadeCount": 4,
+      "msaaSampleCount": 4,
+      "maxVisibleLights": 16,
+      "perObjectLimitAdditionalLights": 4,
+      "supportsDynamicResolution": false,
+      "screenSpaceShadows": true,
+      "decalTech": "Clustered",
+      "additionalLightsRenderingMode": "Forward",
+      "mainLightRenderingMode": "Forward"
+    },
+    "HDRP": {
+      "renderScale": 1.0,
+      "shadowDistance": 150,
+      "colorBufferFormat": "R16G16B16A16",
+      "depthBufferFormat": "D32",
+      "upsamplingFilter": "CatmullRom",
+      "pathtracer": {
+        "enabled": false,
+        "maxBounces": 3
+      },
+      "rayTracing": {
+        "enabled": true,
+        "maxRaySteps": 64
+      }
+    }
+  },
+  "physics_settings": {
+    "defaultSolverIterations": 10,
+    "defaultSolverVelocityIterations": 2,
+    "fixedDeltaTime": 0.0167,
+    "autoSyncTransforms": true
+  },
+  "ui_settings": {
+    "canvasScalabilityTarget": "StandardDPI",
+    "dynamicPixelsPerPoint": true
+  },
+  "estimated_impact": {
+    "fps_improvement": "10-20% vs. default (depends on scene complexity)",
+    "memory_reduction": "10-15%",
+    "draw_call_reduction": "5-10%"
+  },
+  "applied_via": "Craft_ModifyComponent + URP/HDRP asset override"
+}

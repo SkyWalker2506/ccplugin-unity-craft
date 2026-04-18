@@ -1,0 +1,68 @@
+{
+  "preset_name": "Anime",
+  "version": "1.0",
+  "pipeline": "both",
+  "volume_components": [
+    {
+      "type": "Bloom",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.5,
+          "override": true
+        },
+        "threshold": {
+          "value": 0.5,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "ColorGrading",
+      "enabled": true,
+      "properties": {
+        "lut": {
+          "value": "anime-lut",
+          "override": true
+        },
+        "lutContribution": {
+          "value": 1.0,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "ColorAdjustments",
+      "enabled": true,
+      "properties": {
+        "saturation": {
+          "value": 0.2,
+          "override": true
+        },
+        "contrast": {
+          "value": 0.1,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "Outline",
+      "enabled": true,
+      "properties": {
+        "method": {
+          "value": "Sobel",
+          "override": true
+        },
+        "thickness": {
+          "value": 1.0,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "DepthOfField",
+      "enabled": false,
+      "properties": {}
+    }
+  ]
+}

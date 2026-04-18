@@ -1,0 +1,61 @@
+{
+  "preset_name": "atlas",
+  "version": "1.0",
+  "applies_to": "TextureImporter",
+  "target_platform": "multi-platform",
+  "description": "UI atlas and sprite sheet textures. ASTC 4x4 for mobile, DXT5 fallback for desktop.",
+  "overrides": {
+    "textureType": "Sprite",
+    "textureShape": "2D",
+    "maxTextureSize": 2048,
+    "mipmaps": false,
+    "mipmapEnabled": false,
+    "sRGBTexture": true,
+    "wrapModeU": "Clamp",
+    "wrapModeV": "Clamp",
+    "wrapModeW": "Clamp",
+    "filterMode": "Bilinear",
+    "anisotropicLevel": 1,
+    "platformOverrides": {
+      "Android": {
+        "format": "ASTC_4x4",
+        "maxTextureSize": 2048,
+        "textureCompression": "Compressed",
+        "compressionQuality": 50,
+        "crunchCompression": true
+      },
+      "iPhone": {
+        "format": "ASTC_4x4",
+        "maxTextureSize": 2048,
+        "textureCompression": "Compressed",
+        "compressionQuality": 50,
+        "crunchCompression": true
+      },
+      "Standalone": {
+        "format": "DXT5",
+        "maxTextureSize": 2048,
+        "textureCompression": "Compressed",
+        "compressionQuality": 50,
+        "crunchCompression": false
+      }
+    },
+    "spritePackingTag": "UI",
+    "spritePixelsPerUnit": 100,
+    "spriteBorder": [0, 0, 0, 0],
+    "spriteGenerateFallbackPhysicsShape": false,
+    "readable": false,
+    "streamingMipmaps": false,
+    "ignoreMipmapLimit": true
+  },
+  "estimated_impact": {
+    "memory_reduction": "65-75% (RGBA32 → ASTC 4x4)",
+    "vram_reduction": "70-80%",
+    "visual_quality_preservation": "PSNR > 40dB (UI friendly)"
+  },
+  "validation": {
+    "check_texture_type": "Sprite importer settings applied",
+    "check_packing_tag": "Atlas correctly tagged for batching",
+    "check_format": "Android/iOS: ASTC_4x4, Standalone: DXT5"
+  },
+  "applied_via": "Craft_SetTextureImporter sprite atlas override"
+}

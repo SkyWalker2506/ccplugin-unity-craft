@@ -1,0 +1,64 @@
+{
+  "preset_name": "Stylized",
+  "version": "1.0",
+  "pipeline": "both",
+  "volume_components": [
+    {
+      "type": "Bloom",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.8,
+          "override": true
+        },
+        "threshold": {
+          "value": 0.8,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "ColorAdjustments",
+      "enabled": true,
+      "properties": {
+        "saturation": {
+          "value": 0.25,
+          "override": true
+        },
+        "contrast": {
+          "value": 0.15,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "ColorGrading",
+      "enabled": true,
+      "properties": {
+        "lut": {
+          "value": "stylized-lut",
+          "override": true
+        },
+        "lutContribution": {
+          "value": 1.0,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "DepthOfField",
+      "enabled": false,
+      "properties": {}
+    },
+    {
+      "type": "MotionBlur",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.3,
+          "override": true
+        }
+      }
+    }
+  ]
+}

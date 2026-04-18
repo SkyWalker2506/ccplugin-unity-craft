@@ -1,0 +1,73 @@
+{
+  "preset_name": "Horror",
+  "version": "1.0",
+  "pipeline": "both",
+  "volume_components": [
+    {
+      "type": "ColorAdjustments",
+      "enabled": true,
+      "properties": {
+        "saturation": {
+          "value": -0.4,
+          "override": true
+        },
+        "colorFilter": {
+          "value": {
+            "r": 1.0,
+            "g": 0.6,
+            "b": 0.6
+          },
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "Vignette",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.5,
+          "override": true
+        },
+        "smoothness": {
+          "value": 0.4,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "FilmGrain",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.3,
+          "override": true
+        },
+        "type": {
+          "value": "Fine",
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "ChromaticAberration",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.4,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "Bloom",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.2,
+          "override": true
+        }
+      }
+    }
+  ]
+}

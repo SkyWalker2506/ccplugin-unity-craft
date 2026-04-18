@@ -15,6 +15,24 @@ Activate when the user mentions:
 3. **Query before modify** — use `Craft_Query` to find targets before `Craft_Execute`
 4. **validate=true is default** — trust the validation, don't skip it
 5. **Always report transactionId** — the user needs it for rollback
+6. **Never output user-facing click instructions** — all actions execute via CRAFT or vision-driven dispatch. FORBIDDEN: "click X", "open Y menu", "go to Window > Z", "do setup step N". See `tools/screen-control.md` Forbidden Output Patterns.
+
+## Extended Capabilities
+
+Four tool families extend core CRAFT scene ops:
+
+| Family | Tool file | Dispatch target | Purpose |
+|--------|-----------|-----------------|---------|
+| **Design Import** | [`tools/import-design-bundle.md`](tools/import-design-bundle.md) | D11 unity-ui-developer | Claude Design handoff bundle → UXML + USS + UIDocument |
+| **Screen Control** | [`tools/screen-control.md`](tools/screen-control.md) | G13 vision-action-operator | Capture + analyze + act (autonomous, no user instructions) |
+| **Cinematic** | [`tools/cinematic.md`](tools/cinematic.md) | E9 unity-cinematic-director | Cinemachine VCams + PostFX presets + shot capture |
+| **Optimization** | [`tools/optimization.md`](tools/optimization.md) | B53 unity-performance-analyzer | Profile + batch + textures + LOD + quality + purge |
+
+Read the relevant `tools/*.md` file before invoking a capability — each has signature, pipeline, dispatch protocol, and verification.
+
+**Upstream dependency:** Screen control + texture/profile optimization need new ops in `com.skywalker.craft` (Craft_Inspect + Craft_ImportSettings). See [`tools/craft-unity-upstream-ops.md`](tools/craft-unity-upstream-ops.md) — implement that PR first, then these capabilities unlock.
+
+**Presets:** `presets/cinema/*.json`, `presets/postfx/*.json`, `presets/quality/*.json`, `presets/texture/*.json` — loaded by tool handlers, don't edit at runtime.
 
 ## Tool Usage Patterns
 

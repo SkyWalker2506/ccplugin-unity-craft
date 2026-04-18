@@ -1,0 +1,49 @@
+{
+  "preset_name": "FirstPerson",
+  "version": "1.0",
+  "target": "CinemachineCamera",
+  "properties": {
+    "m_Lens": {
+      "FieldOfView": 75,
+      "NearClipPlane": 0.1,
+      "FarClipPlane": 5000,
+      "dutch": 0
+    },
+    "m_Body": {
+      "type": "ThirdPersonFollow",
+      "properties": {
+        "m_FollowAboveGround": false,
+        "m_FollowHeight": 0,
+        "m_FollowDistance": 0,
+        "m_CameraCollisionQueryPadding": 0.1,
+        "m_Damping": 0.3,
+        "m_ShoulderOffset": [0, 0, 0],
+        "m_VerticalShoulderOffset": 0,
+        "m_CameraSide": 0
+      }
+    },
+    "m_Aim": {
+      "type": "SameAsFollowTarget",
+      "properties": {
+        "m_TrackedObjectOffset": [0, 0.6, 0],
+        "m_LookaheadTime": 0,
+        "m_LookaheadSmoothing": 10,
+        "m_LookaheadZoomOutMaxDistance": 0,
+        "m_LookaheadZoomOutMinDistance": 0
+      }
+    },
+    "m_ClearShot": {
+      "enabled": true,
+      "avoidObstacles": true,
+      "distanceLimit": 0.5
+    },
+    "m_Noise": {
+      "enabled": false,
+      "Frequency": 1,
+      "Amplitude": 0,
+      "FilterSize": 1
+    },
+    "m_Damping": 0.3,
+    "m_Priority": 10
+  }
+}

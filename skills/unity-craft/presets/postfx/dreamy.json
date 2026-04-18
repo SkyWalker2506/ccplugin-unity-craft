@@ -1,0 +1,77 @@
+{
+  "preset_name": "Dreamy",
+  "version": "1.0",
+  "pipeline": "both",
+  "volume_components": [
+    {
+      "type": "DepthOfField",
+      "enabled": true,
+      "properties": {
+        "focusDistance": {
+          "value": 50.0,
+          "override": true
+        },
+        "aperture": {
+          "value": 1.4,
+          "override": true
+        },
+        "focalLength": {
+          "value": 85.0,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "ColorAdjustments",
+      "enabled": true,
+      "properties": {
+        "shadows": {
+          "value": 0.2,
+          "override": true
+        },
+        "colorFilter": {
+          "value": {
+            "r": 1.1,
+            "g": 0.95,
+            "b": 1.0
+          },
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "Bloom",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.6,
+          "override": true
+        },
+        "threshold": {
+          "value": 0.8,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "Vignette",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.15,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "MotionBlur",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.2,
+          "override": true
+        }
+      }
+    }
+  ]
+}

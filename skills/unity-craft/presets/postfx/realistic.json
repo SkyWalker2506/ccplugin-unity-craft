@@ -1,0 +1,74 @@
+{
+  "preset_name": "Realistic",
+  "version": "1.0",
+  "pipeline": "both",
+  "volume_components": [
+    {
+      "type": "Bloom",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.15,
+          "override": true
+        },
+        "threshold": {
+          "value": 1.2,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "DepthOfField",
+      "enabled": false,
+      "properties": {}
+    },
+    {
+      "type": "ColorAdjustments",
+      "enabled": true,
+      "properties": {
+        "saturation": {
+          "value": 0.0,
+          "override": true
+        },
+        "contrast": {
+          "value": 0.05,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "Vignette",
+      "enabled": true,
+      "properties": {
+        "intensity": {
+          "value": 0.1,
+          "override": true
+        },
+        "smoothness": {
+          "value": 0.5,
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "TonemappingMode",
+      "enabled": true,
+      "properties": {
+        "mode": {
+          "value": "ACES",
+          "override": true
+        }
+      }
+    },
+    {
+      "type": "GlobalIllumination",
+      "enabled": true,
+      "properties": {
+        "enabled": {
+          "value": true,
+          "override": true
+        }
+      }
+    }
+  ]
+}
