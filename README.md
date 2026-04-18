@@ -36,7 +36,9 @@ Then make sure the Unity MCP bridge is active:
 
 ## What this plugin does
 
-Teaches Claude Code how to use CRAFT's MCP tools for safe, transaction-based Unity scene manipulation:
+Teaches Claude Code how to use CRAFT's MCP tools for safe, transaction-based Unity scene manipulation plus four extended capabilities: Claude Design import, autonomous screen control, cinematic camera, and performance optimization.
+
+### Core CRAFT tools
 
 | Tool | Description |
 |------|-------------|
@@ -45,6 +47,120 @@ Teaches Claude Code how to use CRAFT's MCP tools for safe, transaction-based Uni
 | `Craft_Rollback` | Revert any transaction by ID or undo N steps |
 | `Craft_Query` | Find scene objects by name, component, tag, parent |
 | `Craft_Status` | Engine status, recent transactions, last trace |
+
+### Extended tool families
+
+| Family | Triggers | Spec |
+|--------|----------|------|
+| **Design Import** | "import this claude design", "turn this design into a menu" | [`tools/import-design-bundle.md`](skills/unity-craft/tools/import-design-bundle.md) |
+| **Screen Control** | "look at the scene", "what's on screen", "fix the HUD layout" | [`tools/screen-control.md`](skills/unity-craft/tools/screen-control.md) |
+| **Cinematic** | "cinematic shot", "cutscene camera", "make this look cinematic" | [`tools/cinematic.md`](skills/unity-craft/tools/cinematic.md) |
+| **Optimization** | "optimize this scene", "reduce draw calls", "mobile performance" | [`tools/optimization.md`](skills/unity-craft/tools/optimization.md) |
+
+---
+
+## Usage examples
+
+### Example 1 — Import a Claude Design bundle as Unity UI
+
+Claude Design (April 2026) exports prototype handoff bundles. This plugin converts them into UXML + USS + UIDocument in one shot.
+
+```
+> Import this design as the main menu:
+> https://claude.ai/design/bundle/abc123/handoff
+
+ImportDesignBundle(
+  bundleUrl = "https://claude.ai/design/bundle/abc123/handoff",
+  canvasName = "MainMenu"
+)
+```
+
+**Resulting actions (fully autonomous):**
+1. Bundle fetched + cached under `.unity-craft/design-cache/<hash>/`
+2. Dispatched to **D11** (unity-ui-developer, gpt-5.4): HTML → UXML, design tokens → USS variables
+3. Files written: `Assets/UI/MainMenu/MainMenu.uxml` + `MainMenu.uss`
+4. Craft_Execute transaction: `MainMenu_UIDoc` GameObject created with UIDocument component bound to the UXML
+5. Reports transaction ID for rollback
+
+No manual UI Builder clicks required — the menu is in your scene and styled.
+
+### Example 2 — Cinematic shot capture
+
+```
+> Set up a cinematic third-person camera following the player
+> and capture a 3-second hero shot at 60fps.
+
+Cinema_CreateVCam(preset = "ThirdPerson", target = "Player")
+PostFX_ApplyPreset(volumeName = "Main", preset = "Cinematic")
+Cinema_CaptureShot(vCam = "PlayerVCam", duration = 3, fps = 60,
+                   outputDir = "Recordings/hero-shot")
+```
+
+**What happens:**
+1. **E9** (unity-cinematic-director) picks the rig preset from `presets/cinema/thirdperson.json`
+2. Craft_Execute creates CinemachineCamera + sets damping, lens, follow target
+3. PostFX Volume profile swapped to Cinematic (subtle Bloom, DoF focus-pull, Vignette 0.2)
+4. Timeline scrubs 3 seconds, each frame captured via upstream `Craft_CaptureGameView`
+5. 180 PNG frames land in `Recordings/hero-shot/`
+
+Switch preset (`Anime`, `Horror`, `Dreamy` …) for a different look — values come from `presets/postfx/*.json`.
+
+### Example 3 — Performance audit + optimization
+
+```
+> My mobile build is hitting 15 FPS in the hub scene.
+> Analyze it and apply what's safe automatically.
+
+Optimize_Analyze(scope = "scene", target = "mobile")
+```
+
+**Result — report from B53 (unity-performance-analyzer, gemini-3.1-pro):**
+
+```
+## Performance Report — HubScene / mobile
+Baseline: FPS 15, DrawCalls 412, SetPass 287, Tris 890K, Memory 1.1GB, GC/frame 12KB
+
+### Top 5 Fixes (by ROI)
+1. [HIGH] Texture compression — 38 uncompressed textures → ASTC 6x6, est. −45% memory
+2. [HIGH] Static batching — 127 objects marked dynamic but never move, est. −180 draw calls
+3. [MED]  Quality preset mismatch — running Desktop preset on mobile, switch to mobile-low
+4. [MED]  22 duplicate textures detected (dryRun purge list attached)
+5. [LOW]  3 shader variants unused in build — stripping saves 8MB
+```
+
+Follow-ups run in one batch:
+
+```
+Optimize_Textures("Assets/Textures/Hub", preset = "mobile")
+Optimize_Quality(preset = "mobile-low")
+Optimize_Batch(scene = "HubScene")
+```
+
+Before / after delta is measurable on device — no `ProfilerRecorder` guessing.
+
+---
+
+## Agent routing
+
+Jarvis routes each invocation to the right registry agent automatically:
+
+| Task | Agent | Model |
+|------|-------|-------|
+| UXML / USS / design import | D11 unity-ui-developer | gpt-5.4 |
+| Screen capture + vision → CRAFT ops | G13 vision-action-operator | gpt-5.4 |
+| Cinemachine + PostFX | E9 unity-cinematic-director | gpt-5.4 |
+| Runtime camera (split-screen, stack) | B37 unity-camera-systems | gpt-5.4 |
+| Performance (holistic) | B53 unity-performance-analyzer | gemini-3.1-pro |
+| Performance (mobile-specific) | B32 unity-mobile-optimizer | gpt-5.4 |
+| Gameplay / C# | B19 unity-developer | gpt-5.4 |
+
+Claude orchestration stays minimal — heavy lifting goes to Gemini/GPT via codex CLI.
+
+---
+
+## Forbidden output patterns
+
+The `screen-control.md` and `SKILL.md` enforce Rule #6: Claude **never** tells the user to "click X" or "open Y menu" while this plugin is active. All actions execute through CRAFT or dispatch to G13's vision pipeline. Outputs describe CRAFT transactions, never user-facing clicks.
 
 ---
 
