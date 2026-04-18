@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "com.skywalker.craft": "https://github.com/skywalker/craft-unity.git#v0.2.0",
+    "com.unity.ai.assistant": "2.0.0",
+    "com.unity.inputsystem": "1.11.0",
+    "com.unity.cinemachine": "3.1.1",
+    "com.unity.render-pipelines.universal": "17.0.3"
+  }
+}
