@@ -34,6 +34,33 @@ Then make sure the Unity MCP bridge is active:
 
 ---
 
+## Why this exists (vs. plain Unity MCP)
+
+`com.unity.ai.assistant` 2.0 ships with `Unity_ManageScene`, `Unity_ManageGameObject`, `Unity_ReadConsole`, and low-level asset/script ops. That is a **remote control**. Claude still has to reason scene-mutation-by-mutation, with no safety net and no higher-level intent.
+
+This plugin is the **co-developer layer on top**:
+
+| Capability | Unity MCP 2.0 | ccplugin-unity-craft |
+|------------|---------------|----------------------|
+| Scene mutation | ✅ direct, imperative | ✅ via `Craft_Execute` — batched, validated, **rollback-able by transaction ID** |
+| Pre-flight dry-run | ❌ | ✅ `Craft_Validate` |
+| Undo / revert N steps | ❌ | ✅ `Craft_Rollback` |
+| Structured scene query | ⚠️ name-only | ✅ `Craft_Query` by component, tag, parent, filter chains |
+| Claude Design bundle → UI Toolkit | ❌ | ✅ `ImportDesignBundle` → UXML + USS + UIDocument |
+| Game / Scene view screenshot | ❌ | ✅ `CaptureScreen` (upstream CRAFT) |
+| Profiler snapshot | ❌ | ✅ `Optimize_Profile` (upstream CRAFT) |
+| TextureImporter / ModelImporter batch | ❌ | ✅ transaction-safe, rollback-able |
+| Cinemachine rig presets | ❌ | ✅ 6 presets (Portrait/ThirdPerson/Orbit/TopDown/Cinematic/FirstPerson) |
+| Post-processing Volume presets | ❌ | ✅ 6 presets (Cinematic/Stylized/Realistic/Anime/Horror/Dreamy), URP+HDRP auto-detect |
+| Mobile / desktop / console quality presets | ❌ | ✅ one-line apply + before/after deltas |
+| Autonomous vision-driven action | ❌ | ✅ `ActOnScreen(imageRef, goal)` → CRAFT ops, **never tells user to click** |
+| Specialist agent routing | ❌ (single agent) | ✅ D11/E9/G13/B53/B37/B32/B19 via Jarvis dispatch |
+| Declarative intent API | ❌ (you write ops) | ✅ you write **goals**, plugin writes ops |
+
+Short version: Unity MCP lets Claude **move pieces**. This plugin lets Claude **design and ship features**.
+
+---
+
 ## What this plugin does
 
 Teaches Claude Code how to use CRAFT's MCP tools for safe, transaction-based Unity scene manipulation plus four extended capabilities: Claude Design import, autonomous screen control, cinematic camera, and performance optimization.
