@@ -1,7 +1,8 @@
 {
   "preset_name": "Horror",
   "version": "1.0",
-  "pipeline": "both",
+  "pipeline": "hdrp",
+  "_note": "FilmGrain component is HDRP-only — URP users should use a custom renderer feature or third-party asset instead",
   "volume_components": [
     {
       "type": "ColorAdjustments",
