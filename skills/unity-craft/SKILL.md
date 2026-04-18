@@ -19,21 +19,25 @@ Activate when the user mentions:
 
 ## Extended Capabilities
 
-Four tool families extend core CRAFT scene ops:
+Nine tool families extend core CRAFT scene ops:
 
 | Family | Tool file | Dispatch target | Purpose |
 |--------|-----------|-----------------|---------|
 | **Design Import** | [`tools/import-design-bundle.md`](tools/import-design-bundle.md) | D11 unity-ui-developer | Claude Design handoff bundle → UXML + USS + UIDocument |
 | **Screen Control** | [`tools/screen-control.md`](tools/screen-control.md) | G13 vision-action-operator | Capture + analyze + act (autonomous, no user instructions) |
 | **Cinematic** | [`tools/cinematic.md`](tools/cinematic.md) | E9 unity-cinematic-director | Cinemachine VCams + PostFX presets + shot capture |
+| **Animation** | [`tools/animation.md`](tools/animation.md) | E9 unity-cinematic-director | Animator + Timeline + state machines + curve presets |
+| **Level Design** | [`tools/level-design.md`](tools/level-design.md) | E11 unity-level-designer | Modular rooms, terrain, NavMesh, lighting presets |
 | **Optimization** | [`tools/optimization.md`](tools/optimization.md) | B53 unity-performance-analyzer | Profile + batch + textures + LOD + quality + purge |
+| **Audio** | [`tools/audio.md`](tools/audio.md) | B26 unity-audio-engineer | AudioMixer groups, snapshots, spatial setup, import presets |
 | **Asset Store** | [`tools/asset-store.md`](tools/asset-store.md) | E16 asset-store-curator | Library inventory + UPM/OpenUPM/Git research + install |
+| **Input System** | [`tools/input.md`](tools/input.md) | B36 unity-input-system | Action maps + bindings + UI Toolkit rebind UI |
 
 Read the relevant `tools/*.md` file before invoking a capability — each has signature, pipeline, dispatch protocol, and verification.
 
 **Upstream dependency:** Screen control + texture/profile optimization need new ops in `com.skywalker.craft` (Craft_Inspect + Craft_ImportSettings). See [`tools/craft-unity-upstream-ops.md`](tools/craft-unity-upstream-ops.md) — implement that PR first, then these capabilities unlock.
 
-**Presets:** `presets/cinema/*.json`, `presets/postfx/*.json`, `presets/quality/*.json`, `presets/texture/*.json` — loaded by tool handlers, don't edit at runtime.
+**Presets:** `presets/cinema/*.json`, `presets/postfx/*.json`, `presets/animation/*.json`, `presets/input/*.json`, `presets/quality/*.json`, `presets/texture/*.json` — loaded by tool handlers, don't edit at runtime.
 
 ## Tool Usage Patterns
 

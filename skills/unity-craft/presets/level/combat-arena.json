@@ -1,0 +1,121 @@
+{
+  "preset_name": "combat-arena",
+  "version": "1.0",
+  "target": "Scene",
+  "requires_packages": [],
+  "origin_offset": [0, 0, 0],
+  "operations": [
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Floor",
+        "primitiveType": "Plane",
+        "scale": [10, 1, 10],
+        "position": [0, 0, 0],
+        "components": ["MeshCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "CoverBlock1",
+        "primitiveType": "Cube",
+        "scale": [2, 2, 2],
+        "position": [7, 1, 7],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "CoverBlock2",
+        "primitiveType": "Cube",
+        "scale": [2, 2, 2],
+        "position": [-7, 1, 7],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "CoverBlock3",
+        "primitiveType": "Cube",
+        "scale": [2, 2, 2],
+        "position": [7, 1, -7],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "CoverBlock4",
+        "primitiveType": "Cube",
+        "scale": [2, 2, 2],
+        "position": [-7, 1, -7],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "EnemySpawn1",
+        "position": [10, 1, 10],
+        "tags": ["enemy_melee"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "EnemySpawn2",
+        "position": [-10, 1, 10],
+        "tags": ["enemy_ranged"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "EnemySpawn3",
+        "position": [10, 1, -10],
+        "tags": ["enemy_melee"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "EnemySpawn4",
+        "position": [-10, 1, -10],
+        "tags": ["enemy_ranged"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "BossSpawn",
+        "position": [0, 1, 0],
+        "tags": ["boss_spawn"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Directional Light",
+        "components": ["Light"],
+        "position": [5, 10, 5],
+        "rotation": [45, 45, 0]
+      }
+    },
+    {
+      "type": "ModifyComponent",
+      "target": "Directional Light",
+      "parameters": {
+        "componentType": "Light",
+        "values": {
+          "type": 1,
+          "intensity": 1.0,
+          "color": [1, 1, 1, 1]
+        }
+      }
+    }
+  ],
+  "_note": "20×20m arena, 4 cover blocks at corners (2×2×2), 4 enemy spawns alternating melee/ranged around perimeter, boss at center."
+}

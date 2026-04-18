@@ -1,0 +1,164 @@
+{
+  "preset_name": "combat-ground",
+  "version": "1.0",
+  "target": "AnimatorController",
+  "requires_unity": "6000.0",
+  "description": "Combat state machine with 3-hit combo attacks, hit reactions, block, and death state.",
+  "properties": {
+    "states": [
+      {
+        "name": "Idle",
+        "clipPath": "Assets/Animations/Combat/Idle.anim",
+        "speed": 1.0,
+        "isDefault": true
+      },
+      {
+        "name": "Attack1",
+        "clipPath": "Assets/Animations/Combat/Attack1.anim",
+        "speed": 1.0
+      },
+      {
+        "name": "Attack2",
+        "clipPath": "Assets/Animations/Combat/Attack2.anim",
+        "speed": 1.0
+      },
+      {
+        "name": "Attack3",
+        "clipPath": "Assets/Animations/Combat/Attack3.anim",
+        "speed": 1.0
+      },
+      {
+        "name": "Hit",
+        "clipPath": "Assets/Animations/Combat/Hit.anim",
+        "speed": 1.0
+      },
+      {
+        "name": "Block",
+        "clipPath": "Assets/Animations/Combat/Block.anim",
+        "speed": 1.0
+      },
+      {
+        "name": "Die",
+        "clipPath": "Assets/Animations/Combat/Die.anim",
+        "speed": 1.0
+      }
+    ],
+    "parameters": [
+      {
+        "name": "AttackTrigger",
+        "type": "trigger",
+        "defaultValue": false
+      },
+      {
+        "name": "HitTrigger",
+        "type": "trigger",
+        "defaultValue": false
+      },
+      {
+        "name": "BlockTrigger",
+        "type": "trigger",
+        "defaultValue": false
+      },
+      {
+        "name": "IsDead",
+        "type": "bool",
+        "defaultValue": false
+      }
+    ],
+    "transitions": [
+      {
+        "from": "Idle",
+        "to": "Attack1",
+        "conditions": [
+          {
+            "parameter": "AttackTrigger",
+            "mode": "Equals",
+            "threshold": 1
+          }
+        ],
+        "duration": 0.1,
+        "hasExitTime": false
+      },
+      {
+        "from": "Attack1",
+        "to": "Idle",
+        "conditions": [],
+        "duration": 0.2,
+        "hasExitTime": true
+      },
+      {
+        "from": "Attack1",
+        "to": "Hit",
+        "conditions": [
+          {
+            "parameter": "HitTrigger",
+            "mode": "Equals",
+            "threshold": 1
+          }
+        ],
+        "duration": 0.05,
+        "hasExitTime": false
+      },
+      {
+        "from": "Hit",
+        "to": "Idle",
+        "conditions": [],
+        "duration": 0.2,
+        "hasExitTime": true
+      },
+      {
+        "from": "Idle",
+        "to": "Block",
+        "conditions": [
+          {
+            "parameter": "BlockTrigger",
+            "mode": "Equals",
+            "threshold": 1
+          }
+        ],
+        "duration": 0.1,
+        "hasExitTime": false
+      },
+      {
+        "from": "Block",
+        "to": "Idle",
+        "conditions": [
+          {
+            "parameter": "BlockTrigger",
+            "mode": "Equals",
+            "threshold": 0
+          }
+        ],
+        "duration": 0.15,
+        "hasExitTime": false
+      },
+      {
+        "from": "Idle",
+        "to": "Die",
+        "conditions": [
+          {
+            "parameter": "IsDead",
+            "mode": "Equals",
+            "threshold": true
+          }
+        ],
+        "duration": 0.1,
+        "hasExitTime": false
+      },
+      {
+        "from": "Attack1",
+        "to": "Die",
+        "conditions": [
+          {
+            "parameter": "IsDead",
+            "mode": "Equals",
+            "threshold": true
+          }
+        ],
+        "duration": 0.1,
+        "hasExitTime": false
+      }
+    ]
+  },
+  "_note": "Combat system with trigger-based attacks and state-driven feedback. Script calls animator.SetTrigger('AttackTrigger') to initiate attacks, animator.SetTrigger('HitTrigger') for hit reactions, animator.SetBool('IsDead', true) for death."
+}

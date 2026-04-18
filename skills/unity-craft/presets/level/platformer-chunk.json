@@ -1,0 +1,80 @@
+{
+  "preset_name": "platformer-chunk",
+  "version": "1.0",
+  "target": "Scene",
+  "requires_packages": [],
+  "origin_offset": [0, 0, 0],
+  "operations": [
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Platform0",
+        "primitiveType": "Cube",
+        "scale": [10, 0.5, 10],
+        "position": [0, 0, 0],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Platform1",
+        "primitiveType": "Cube",
+        "scale": [8, 0.5, 8],
+        "position": [2, 2, 2],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Platform2",
+        "primitiveType": "Cube",
+        "scale": [6, 0.5, 6],
+        "position": [4, 4, 4],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Checkpoint",
+        "position": [4, 4.5, 4],
+        "tags": ["checkpoint"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "KillZone",
+        "primitiveType": "Cube",
+        "scale": [50, 1, 50],
+        "position": [0, -5, 0],
+        "components": ["BoxCollider"],
+        "tags": ["kill_zone"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Directional Light",
+        "components": ["Light"],
+        "position": [10, 10, 10],
+        "rotation": [45, 45, 0]
+      }
+    },
+    {
+      "type": "ModifyComponent",
+      "target": "Directional Light",
+      "parameters": {
+        "componentType": "Light",
+        "values": {
+          "type": 1,
+          "intensity": 1.0,
+          "color": [1, 1, 1, 1]
+        }
+      }
+    }
+  ],
+  "_note": "Three platforms at y=0/2/4, scaled down progressively (10×8×6), diagonal stagger. Checkpoint at top platform. Kill zone at y=-5."
+}

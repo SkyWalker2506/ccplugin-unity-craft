@@ -1,0 +1,131 @@
+{
+  "preset_name": "mobile-optimized",
+  "version": "1.0",
+  "target": "AudioMixer",
+  "_note": "Low CPU footprint for mobile devices. Omits real-time convolution reverb, limits voice channel count to 32.",
+  "groups": [
+    {
+      "name": "Master",
+      "parent": null,
+      "attenuation": 0,
+      "voiceCount": 32
+    },
+    {
+      "name": "Music",
+      "parent": "Master",
+      "attenuation": 0
+    },
+    {
+      "name": "SFX",
+      "parent": "Master",
+      "attenuation": 0
+    },
+    {
+      "name": "UI",
+      "parent": "Master",
+      "attenuation": 0
+    },
+    {
+      "name": "Voice",
+      "parent": "Master",
+      "attenuation": 0
+    }
+  ],
+  "exposed_parameters": [
+    {
+      "name": "Master Volume",
+      "controlGroup": "Master",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "Music Volume",
+      "controlGroup": "Music",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "SFX Volume",
+      "controlGroup": "SFX",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "UI Volume",
+      "controlGroup": "UI",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "Voice Volume",
+      "controlGroup": "Voice",
+      "controlProperty": "Volume"
+    }
+  ],
+  "effects": [
+    {
+      "group": "Master",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Compressor",
+      "enabled": true,
+      "parameters": {
+        "threshold": -20,
+        "ratio": 2,
+        "attackTime": 0.01,
+        "releaseTime": 0.5,
+        "makeupGain": 0
+      }
+    },
+    {
+      "group": "SFX",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "HighPass",
+      "enabled": true,
+      "parameters": {
+        "cutoffFrequency": 20,
+        "resonanceQ": 1
+      }
+    },
+    {
+      "group": "Voice",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Compressor",
+      "enabled": true,
+      "parameters": {
+        "threshold": -18,
+        "ratio": 2,
+        "attackTime": 0.05,
+        "releaseTime": 0.2,
+        "makeupGain": 0
+      }
+    }
+  ],
+  "snapshots": [
+    {
+      "name": "GameDefault",
+      "overrides": {
+        "Master Volume": -1,
+        "Music Volume": -3,
+        "SFX Volume": 0,
+        "UI Volume": -6,
+        "Voice Volume": 0
+      }
+    },
+    {
+      "name": "MusicOnly",
+      "overrides": {
+        "Master Volume": 0,
+        "Music Volume": 0,
+        "SFX Volume": -20,
+        "UI Volume": -20,
+        "Voice Volume": -20
+      }
+    },
+    {
+      "name": "MenuBackground",
+      "overrides": {
+        "Master Volume": -3,
+        "Music Volume": -3,
+        "SFX Volume": -15,
+        "UI Volume": 0,
+        "Voice Volume": -20
+      }
+    }
+  ]
+}

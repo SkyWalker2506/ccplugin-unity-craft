@@ -1,0 +1,81 @@
+{
+  "preset_name": "ui-button-press",
+  "version": "1.0",
+  "target": "AnimationClip",
+  "requires_unity": "6000.0",
+  "description": "UI button scale pop animation. Scale 1.0 → 1.15 → 1.0 over 0.2 seconds.",
+  "properties": {
+    "animationClipName": "ButtonPress_Pop",
+    "duration": 0.2,
+    "wrapMode": "Once",
+    "curves": [
+      {
+        "property": "localScale.x",
+        "keyframes": [
+          {
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": 0.0,
+            "outTangent": 0.75
+          },
+          {
+            "time": 0.1,
+            "value": 1.15,
+            "inTangent": 0.75,
+            "outTangent": -0.75
+          },
+          {
+            "time": 0.2,
+            "value": 1.0,
+            "inTangent": -0.75,
+            "outTangent": 0.0
+          }
+        ],
+        "interpolation": "smooth"
+      },
+      {
+        "property": "localScale.y",
+        "keyframes": [
+          {
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": 0.0,
+            "outTangent": 0.75
+          },
+          {
+            "time": 0.1,
+            "value": 1.15,
+            "inTangent": 0.75,
+            "outTangent": -0.75
+          },
+          {
+            "time": 0.2,
+            "value": 1.0,
+            "inTangent": -0.75,
+            "outTangent": 0.0
+          }
+        ],
+        "interpolation": "smooth"
+      },
+      {
+        "property": "localScale.z",
+        "keyframes": [
+          {
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": 0.0,
+            "outTangent": 0.0
+          },
+          {
+            "time": 0.2,
+            "value": 1.0,
+            "inTangent": 0.0,
+            "outTangent": 0.0
+          }
+        ],
+        "interpolation": "linear"
+      }
+    ]
+  },
+  "_note": "Non-skeletal animation for UI button feedback. Smoothly scales XY from 1.0 to 1.15 and back over 0.2s. Bind to Button's OnClick event or play on demand via Animation component."
+}

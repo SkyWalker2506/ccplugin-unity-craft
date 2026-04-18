@@ -1,0 +1,43 @@
+{
+  "preset_name": "camera-shake-hit",
+  "version": "1.0",
+  "target": "CinemachineCamera",
+  "requires_unity": "6000.0",
+  "description": "Cinemachine impulse noise amplitude curve for combat hit impact feedback.",
+  "properties": {
+    "component": "Cinemachine.CinemachineScreenShake",
+    "enabled": true,
+    "noiseProfile": "Explosion",
+    "amplitude": {
+      "curves": [
+        {
+          "keyframes": [
+            {
+              "time": 0.0,
+              "value": 0.0,
+              "inTangent": 0.0,
+              "outTangent": 10.0
+            },
+            {
+              "time": 0.15,
+              "value": 1.5,
+              "inTangent": 10.0,
+              "outTangent": -10.0
+            },
+            {
+              "time": 0.3,
+              "value": 0.0,
+              "inTangent": -10.0,
+              "outTangent": 0.0
+            }
+          ],
+          "interpolation": "smooth"
+        }
+      ]
+    },
+    "frequency": 8.0,
+    "duration": 0.3,
+    "sustainTime": 0.1
+  },
+  "_note": "Cinemachine impulse for combat hit feedback. Amplitude peaks at 0.15s (1.5 units) and decays by 0.3s. Syncs with combat attack animations. Duration is fixed at 0.3s; call multiple times for repeated impacts."
+}

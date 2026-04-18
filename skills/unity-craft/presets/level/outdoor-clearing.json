@@ -1,0 +1,73 @@
+{
+  "preset_name": "outdoor-clearing",
+  "version": "1.0",
+  "target": "Scene",
+  "requires_packages": ["com.unity.terrain-tools"],
+  "origin_offset": [0, 0, 0],
+  "operations": [
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Terrain",
+        "components": ["Terrain", "TerrainCollider"],
+        "position": [0, 0, 0]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "TreeContainer",
+        "position": [0, 0, 0]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "RiverPath",
+        "primitiveType": "Cube",
+        "scale": [4, 0.5, 100],
+        "position": [0, 0.5, 0],
+        "components": ["MeshCollider"],
+        "tags": ["water_feature"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "ClearingCenter",
+        "position": [30, 3, 30],
+        "tags": ["clearing_center"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "PlayerSpawn",
+        "position": [30, 3, 30],
+        "tags": ["player_start"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Directional Light",
+        "components": ["Light"],
+        "position": [50, 20, 50],
+        "rotation": [45, 120, 0]
+      }
+    },
+    {
+      "type": "ModifyComponent",
+      "target": "Directional Light",
+      "parameters": {
+        "componentType": "Light",
+        "values": {
+          "type": 1,
+          "intensity": 1.0,
+          "color": [1, 1, 0.9, 1]
+        }
+      }
+    }
+  ],
+  "_note": "100×100m terrain with rolling hills (Perlin). Central river (4m wide). Player spawn at clearing center. Requires Tree prefab in scene for density > 0."
+}

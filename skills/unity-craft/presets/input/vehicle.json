@@ -1,0 +1,291 @@
+{
+  "m_Version": 1,
+  "m_Name": "vehicle",
+  "m_ControlSchemes": [
+    {
+      "Name": "Keyboard&Mouse",
+      "Devices": [
+        {
+          "devicePath": "<Keyboard>",
+          "isOR": false
+        },
+        {
+          "devicePath": "<Mouse>",
+          "isOR": false
+        }
+      ]
+    },
+    {
+      "Name": "Gamepad",
+      "Devices": [
+        {
+          "devicePath": "<Gamepad>",
+          "isOR": false
+        }
+      ]
+    }
+  ],
+  "m_AssetGuid": "",
+  "m_Actions": [
+    {
+      "m_Name": "Accelerate",
+      "m_Type": 1,
+      "m_ExpectedControlType": "Axis",
+      "m_Id": "v1v1v1v1-v1v1-v1v1-v1v1-v1v1v1v1v1v1",
+      "m_Processors": "Clamp(min=0,max=1),NormalizeVector2",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "w1w1w1w1-w1w1-w1w1-w1w1-w1w1w1w1w1w1",
+          "m_Path": "<Keyboard>/w",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Accelerate",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "W",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "x1x1x1x1-x1x1-x1x1-x1x1-x1x1x1x1x1x1",
+          "m_Path": "<Gamepad>/rightTrigger",
+          "m_Interactions": "",
+          "m_Processors": "AxisDeadzone(min=0.1,max=1)",
+          "m_Groups": "Gamepad",
+          "m_Action": "Accelerate",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Right Trigger",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Brake",
+      "m_Type": 1,
+      "m_ExpectedControlType": "Axis",
+      "m_Id": "y1y1y1y1-y1y1-y1y1-y1y1-y1y1y1y1y1y1",
+      "m_Processors": "Clamp(min=0,max=1)",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "z1z1z1z1-z1z1-z1z1-z1z1-z1z1z1z1z1z1",
+          "m_Path": "<Keyboard>/s",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Brake",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "S",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "a2a2a2a2-a2a2-a2a2-a2a2-a2a2a2a2a2a2",
+          "m_Path": "<Gamepad>/leftTrigger",
+          "m_Interactions": "",
+          "m_Processors": "AxisDeadzone(min=0.1,max=1)",
+          "m_Groups": "Gamepad",
+          "m_Action": "Brake",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Left Trigger",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Steer",
+      "m_Type": 1,
+      "m_ExpectedControlType": "Vector2",
+      "m_Id": "b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2",
+      "m_Processors": "NormalizeVector2",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "c2c2c2c2-c2c2-c2c2-c2c2-c2c2c2c2c2c2",
+          "m_Path": "2DVector(up=<Keyboard>/w,down=<Keyboard>/s,left=<Keyboard>/a,right=<Keyboard>/d)",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Steer",
+          "m_IsComposite": true,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "WASD",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2",
+          "m_Path": "<Gamepad>/leftStick",
+          "m_Interactions": "",
+          "m_Processors": "StickDeadzone(min=0.2,max=1),NormalizeVector2",
+          "m_Groups": "Gamepad",
+          "m_Action": "Steer",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Left Stick",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Handbrake",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "e2e2e2e2-e2e2-e2e2-e2e2-e2e2e2e2e2e2",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "f2f2f2f2-f2f2-f2f2-f2f2-f2f2f2f2f2f2",
+          "m_Path": "<Keyboard>/space",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Handbrake",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Space",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "g2g2g2g2-g2g2-g2g2-g2g2-g2g2g2g2g2g2",
+          "m_Path": "<Gamepad>/buttonWest",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "Handbrake",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Button West (X)",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "LookBack",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "h2h2h2h2-h2h2-h2h2-h2h2-h2h2h2h2h2h2",
+      "m_Processors": "",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "i2i2i2i2-i2i2-i2i2-i2i2-i2i2i2i2i2i2",
+          "m_Path": "<Keyboard>/c",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "LookBack",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "C",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "j2j2j2j2-j2j2-j2j2-j2j2-j2j2j2j2j2j2",
+          "m_Path": "<Gamepad>/buttonNorth",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "LookBack",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Button North (Y)",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Horn",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "k2k2k2k2-k2k2-k2k2-k2k2-k2k2k2k2k2k2",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "l2l2l2l2-l2l2-l2l2-l2l2-l2l2l2l2l2l2",
+          "m_Path": "<Keyboard>/h",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Horn",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "H",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "m2m2m2m2-m2m2-m2m2-m2m2-m2m2m2m2m2m2",
+          "m_Path": "<Gamepad>/buttonEast",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "Horn",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Button East (B)",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Camera",
+      "m_Type": 1,
+      "m_ExpectedControlType": "Axis",
+      "m_Id": "n2n2n2n2-n2n2-n2n2-n2n2-n2n2n2n2n2n2",
+      "m_Processors": "Normalize(min=-1,max=1)",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "o2o2o2o2-o2o2-o2o2-o2o2-o2o2o2o2o2o2",
+          "m_Path": "<Mouse>/scroll/y",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Camera",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Mouse Scroll",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "p2p2p2p2-p2p2-p2p2-p2p2-p2p2p2p2p2p2",
+          "m_Path": "<Gamepad>/rightStick/y",
+          "m_Interactions": "",
+          "m_Processors": "StickDeadzone(min=0.2,max=1)",
+          "m_Groups": "Gamepad",
+          "m_Action": "Camera",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Right Stick Y",
+          "m_IsHidden": false
+        }
+      ]
+    }
+  ],
+  "m_ControlSchemesOrder": []
+}

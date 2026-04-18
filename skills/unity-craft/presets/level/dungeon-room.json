@@ -1,0 +1,132 @@
+{
+  "preset_name": "dungeon-room",
+  "version": "1.0",
+  "target": "Scene",
+  "requires_packages": ["com.unity.probuilder"],
+  "origin_offset": [0, 0, 0],
+  "operations": [
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "DungeonRoom",
+        "position": [0, 0, 0]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Floor",
+        "primitiveType": "Plane",
+        "parent": "DungeonRoom",
+        "scale": [10, 1, 4],
+        "position": [0, 0, 0],
+        "components": ["MeshCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Ceiling",
+        "primitiveType": "Plane",
+        "parent": "DungeonRoom",
+        "scale": [10, 1, 4],
+        "position": [0, 10, 0],
+        "rotation": [180, 0, 0]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "WallNorth",
+        "primitiveType": "Cube",
+        "parent": "DungeonRoom",
+        "scale": [10, 10, 0.3],
+        "position": [0, 5, -2],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "WallSouth",
+        "primitiveType": "Cube",
+        "parent": "DungeonRoom",
+        "scale": [10, 10, 0.3],
+        "position": [0, 5, 2],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "WallEast",
+        "primitiveType": "Cube",
+        "parent": "DungeonRoom",
+        "scale": [0.3, 10, 4],
+        "position": [5, 5, 0],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "WallWest",
+        "primitiveType": "Cube",
+        "parent": "DungeonRoom",
+        "scale": [0.3, 10, 4],
+        "position": [-5, 5, 0],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "TorchSpawn1",
+        "parent": "DungeonRoom",
+        "position": [4, 7, -1.8],
+        "tags": ["torch_spawn"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "TorchSpawn2",
+        "parent": "DungeonRoom",
+        "position": [-4, 7, -1.8],
+        "tags": ["torch_spawn"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Directional Light",
+        "parent": "DungeonRoom",
+        "components": ["Light"],
+        "position": [2, 8, 0],
+        "rotation": [45, 45, 0]
+      }
+    },
+    {
+      "type": "ModifyComponent",
+      "target": "Directional Light",
+      "parameters": {
+        "componentType": "Light",
+        "values": {
+          "type": 1,
+          "intensity": 0.4,
+          "color": [1, 0.7, 0.5, 1]
+        }
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "PlayerSpawn",
+        "parent": "DungeonRoom",
+        "position": [0, 1, 0],
+        "tags": ["player_start"]
+      }
+    }
+  ],
+  "_note": "10×4×10m dungeon room, 4 walls + ceiling + floor. Two torch spawn markers. Warm amber lighting (0.4 intensity). Ready for baked lighting."
+}

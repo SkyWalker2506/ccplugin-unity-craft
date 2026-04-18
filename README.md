@@ -52,6 +52,7 @@ This plugin is the **co-developer layer on top**:
 | TextureImporter / ModelImporter batch | ❌ | ✅ transaction-safe, rollback-able |
 | Cinemachine rig presets | ❌ | ✅ 6 presets (Portrait/ThirdPerson/Orbit/TopDown/Cinematic/FirstPerson) |
 | Post-processing Volume presets | ❌ | ✅ 6 presets (Cinematic/Stylized/Realistic/Anime/Horror/Dreamy), URP+HDRP auto-detect |
+| Animator Controller + Timeline presets | ❌ | ✅ `Animation_ApplyPreset("locomotion-player")` — 6 curated rigs, CRAFT-transacted |
 | Mobile / desktop / console quality presets | ❌ | ✅ one-line apply + before/after deltas |
 | Autonomous vision-driven action | ❌ | ✅ `ActOnScreen(imageRef, goal)` → CRAFT ops, **never tells user to click** |
 | Asset Store library awareness | ❌ | ✅ `Assets_ScanLibrary` reads local cache, knows what you already own |
@@ -85,8 +86,12 @@ Teaches Claude Code how to use CRAFT's MCP tools for safe, transaction-based Uni
 | **Design Import** | "import this claude design", "turn this design into a menu" | [`tools/import-design-bundle.md`](skills/unity-craft/tools/import-design-bundle.md) |
 | **Screen Control** | "look at the scene", "what's on screen", "fix the HUD layout" | [`tools/screen-control.md`](skills/unity-craft/tools/screen-control.md) |
 | **Cinematic** | "cinematic shot", "cutscene camera", "make this look cinematic" | [`tools/cinematic.md`](skills/unity-craft/tools/cinematic.md) |
+| **Level Design** | "build a dungeon room", "rolling terrain", "combat arena" | [`tools/level-design.md`](skills/unity-craft/tools/level-design.md) |
+| **Animation** | "add a state machine", "create locomotion", "door animation" | [`tools/animation.md`](skills/unity-craft/tools/animation.md) |
+| **Audio** | "setup audio mixer", "music ducking", "horror ambience" | [`tools/audio.md`](skills/unity-craft/tools/audio.md) |
 | **Optimization** | "optimize this scene", "reduce draw calls", "mobile performance" | [`tools/optimization.md`](skills/unity-craft/tools/optimization.md) |
 | **Asset Store** | "do I have an asset for this", "free alternative to X", "find a UPM package for Y" | [`tools/asset-store.md`](skills/unity-craft/tools/asset-store.md) |
+| **Input System** | "setup player input", "gamepad controls", "rebinding menu" | [`tools/input.md`](skills/unity-craft/tools/input.md) |
 
 ---
 

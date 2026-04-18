@@ -1,0 +1,85 @@
+{
+  "preset_name": "racing-track-straight",
+  "version": "1.0",
+  "target": "Scene",
+  "requires_packages": [],
+  "origin_offset": [0, 0, 0],
+  "operations": [
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Track",
+        "primitiveType": "Cube",
+        "scale": [10, 0.2, 100],
+        "position": [0, 0, 0],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "WallLeft",
+        "primitiveType": "Cube",
+        "scale": [0.5, 2, 100],
+        "position": [-5.5, 1, 0],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "WallRight",
+        "primitiveType": "Cube",
+        "scale": [0.5, 2, 100],
+        "position": [5.5, 1, 0],
+        "components": ["BoxCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "StartLine",
+        "position": [0, 0.3, -50],
+        "tags": ["race_start"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "FinishLine",
+        "position": [0, 0.3, 50],
+        "tags": ["race_finish"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "CameraAnchor",
+        "position": [0, 5, 0],
+        "tags": ["camera_follow"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Directional Light",
+        "components": ["Light"],
+        "position": [20, 15, 0],
+        "rotation": [45, 0, 0]
+      }
+    },
+    {
+      "type": "ModifyComponent",
+      "target": "Directional Light",
+      "parameters": {
+        "componentType": "Light",
+        "values": {
+          "type": 1,
+          "intensity": 1.0,
+          "color": [1, 1, 1, 1]
+        }
+      }
+    }
+  ],
+  "_note": "100m straight track (10m wide, 0.2m thick), side walls. Start at z=-50, finish at z=50. Camera anchor above center."
+}

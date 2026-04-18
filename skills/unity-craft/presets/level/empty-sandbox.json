@@ -1,0 +1,49 @@
+{
+  "preset_name": "empty-sandbox",
+  "version": "1.0",
+  "target": "Scene",
+  "requires_packages": [],
+  "origin_offset": [0, 0, 0],
+  "operations": [
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Ground",
+        "primitiveType": "Plane",
+        "scale": [50, 1, 50],
+        "position": [0, 0, 0],
+        "components": ["MeshCollider"]
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "Directional Light",
+        "components": ["Light"],
+        "position": [10, 10, 10],
+        "rotation": [45, 45, 0]
+      }
+    },
+    {
+      "type": "ModifyComponent",
+      "target": "Directional Light",
+      "parameters": {
+        "componentType": "Light",
+        "values": {
+          "type": 1,
+          "intensity": 1.0,
+          "color": [1, 1, 1, 1]
+        }
+      }
+    },
+    {
+      "type": "CreateGameObject",
+      "parameters": {
+        "name": "PlayerSpawn",
+        "position": [0, 1, 0],
+        "tags": ["player_start"]
+      }
+    }
+  ],
+  "_note": "50×50m flat plane with overhead sun and player spawn at origin. Use for quick prototyping and sandbox tests."
+}

@@ -1,0 +1,72 @@
+{
+  "preset_name": "intro-cinematic",
+  "version": "1.0",
+  "target": "PlayableDirector",
+  "requires_unity": "6000.0",
+  "description": "5-second cinematic opening with VCam cuts, character animation, music, and UI fade.",
+  "properties": {
+    "duration": 5.0,
+    "autoPlay": true,
+    "playOnAwake": true,
+    "tracks": [
+      {
+        "type": "CinemachineTrack",
+        "description": "Virtual camera cut sequence",
+        "clips": [
+          {
+            "clipPath": "Assets/Cinematics/VCam_IntroCharacter.prefab",
+            "startTime": 0.0,
+            "duration": 2.0,
+            "blendInDuration": 0.5,
+            "blendOutDuration": 0.5
+          },
+          {
+            "clipPath": "Assets/Cinematics/VCam_IntroWide.prefab",
+            "startTime": 2.0,
+            "duration": 3.0,
+            "blendInDuration": 0.5,
+            "blendOutDuration": 0.0
+          }
+        ]
+      },
+      {
+        "type": "AnimationTrack",
+        "description": "Character intro animation sequence",
+        "clips": [
+          {
+            "clipPath": "Assets/Animations/Cinematic/Character_Intro.anim",
+            "startTime": 0.0,
+            "duration": 4.0,
+            "blendInDuration": 0.0,
+            "blendOutDuration": 0.0
+          }
+        ]
+      },
+      {
+        "type": "AudioTrack",
+        "description": "Opening theme music",
+        "clips": [
+          {
+            "clipPath": "Assets/Audio/Music/Intro_Theme.wav",
+            "startTime": 0.0,
+            "duration": 5.0,
+            "volume": 0.7
+          }
+        ]
+      },
+      {
+        "type": "ActivationTrack",
+        "description": "UI fade out sequence at end",
+        "targetPath": "Canvas/FadeOverlay",
+        "clips": [
+          {
+            "startTime": 4.0,
+            "duration": 1.0,
+            "activated": false
+          }
+        ]
+      }
+    ]
+  },
+  "_note": "Full cinematic intro with synchronized playback. 4 tracks: VCam cuts at 0-2s (character close-up) and 2-5s (wide shot), character animation for 4s, music for full 5s, UI fade-out at 4-5s. Bindings: assign target VCams to CinemachineTrack clips, character Animator to AnimationTrack, UI fade Canvas to ActivationTrack."
+}

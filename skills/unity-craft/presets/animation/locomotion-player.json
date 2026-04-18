@@ -1,0 +1,94 @@
+{
+  "preset_name": "locomotion-player",
+  "version": "1.0",
+  "target": "AnimatorController",
+  "requires_unity": "6000.0",
+  "description": "Player movement state machine with idle, walk, run states driven by Speed parameter.",
+  "properties": {
+    "states": [
+      {
+        "name": "Idle",
+        "clipPath": "Assets/Animations/Player/Idle.anim",
+        "speed": 1.0,
+        "isDefault": true
+      },
+      {
+        "name": "Walk",
+        "clipPath": "Assets/Animations/Player/Walk.anim",
+        "speed": 1.0
+      },
+      {
+        "name": "Run",
+        "clipPath": "Assets/Animations/Player/Run.anim",
+        "speed": 1.2
+      }
+    ],
+    "parameters": [
+      {
+        "name": "Speed",
+        "type": "float",
+        "defaultValue": 0.0
+      },
+      {
+        "name": "IsMoving",
+        "type": "bool",
+        "defaultValue": false
+      }
+    ],
+    "transitions": [
+      {
+        "from": "Idle",
+        "to": "Walk",
+        "conditions": [
+          {
+            "parameter": "Speed",
+            "mode": "Greater",
+            "threshold": 0.5
+          }
+        ],
+        "duration": 0.25,
+        "hasExitTime": false
+      },
+      {
+        "from": "Walk",
+        "to": "Run",
+        "conditions": [
+          {
+            "parameter": "Speed",
+            "mode": "Greater",
+            "threshold": 5.0
+          }
+        ],
+        "duration": 0.25,
+        "hasExitTime": false
+      },
+      {
+        "from": "Run",
+        "to": "Walk",
+        "conditions": [
+          {
+            "parameter": "Speed",
+            "mode": "Less",
+            "threshold": 5.0
+          }
+        ],
+        "duration": 0.25,
+        "hasExitTime": false
+      },
+      {
+        "from": "Walk",
+        "to": "Idle",
+        "conditions": [
+          {
+            "parameter": "Speed",
+            "mode": "Less",
+            "threshold": 0.5
+          }
+        ],
+        "duration": 0.25,
+        "hasExitTime": false
+      }
+    ]
+  },
+  "_note": "Locomotion blend tree driven by Speed parameter. Script should call animator.SetFloat('Speed', moveSpeed) continuously. Thresholds tuned for smooth 0.5 walk onset, 5.0 run onset."
+}

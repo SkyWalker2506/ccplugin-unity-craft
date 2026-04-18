@@ -590,6 +590,205 @@ public void SetModelImporter_Rollback()
 
 ---
 
+---
+
+## v0.3 Roadmap — Craft_ImportUnityPackage
+
+Closes weak-point **W5** (legacy `.unitypackage` auto-import missing). Enables `Assets_InstallUPM` to handle 90% of Asset Store library (legacy `.unitypackage` format alongside modern UPM).
+
+### Purpose
+
+Legacy `.unitypackage` files dominate the Asset Store (pre-2022). Current workflow requires manual import dialog in Unity Editor. `Craft_ImportUnityPackage` automates this with:
+- Path, URL, or embedded package support
+- Silent (no prompt) or interactive import modes
+- Transaction-safe rollback: enumeration of imported assets + undo on failure
+- Post-import validation via `Craft_ReadConsoleLog` for compile errors
+
+### Operation Class
+
+**Namespace:** `SkyWalker.Craft.Editor.Operations.ImportPackage`  
+**Class:** `ImportUnityPackageOp : ICraftOperation`  
+**Location:** `Editor/Operations/ImportPackage/ImportUnityPackageOp.cs`
+
+### MCP Tool
+
+**Tool Name:** `Craft_ImportUnityPackage`  
+**Tool Class:** `CraftImportUnityPackageTool` in `Editor/McpTools/`
+
+### Parameters
+
+| Parameter | Type | Required | Default | Notes |
+|-----------|------|----------|---------|-------|
+| `packagePath` | string | yes | — | Absolute path to `.unitypackage` file, OR relative to `Assets/`, OR HTTP(S) URL. URL is fetched to temp dir, imported, temp file deleted. |
+| `importMode` | enum | no | "silent" | "interactive" (shows Unity's import dialog), "silent" (imports all without prompt), "replace-without-asking" (overwrites existing without dialog). |
+| `deleteSourceAfterImport` | bool | no | false | If true, delete package file after successful import. Only meaningful when source is outside `Assets/`. |
+
+### Return Shape
+
+```json
+{
+  "success": true,
+  "transactionId": "import-pkg-2026-04-18-143022-abc123",
+  "packagePath": "Assets/Downloaded/MyPackage.unitypackage",
+  "importedAssetPaths": [
+    "Assets/MyPackage/Models/Character.fbx",
+    "Assets/MyPackage/Scripts/PlayerController.cs",
+    "Assets/MyPackage/Materials/Skin.mat"
+  ],
+  "skippedAssets": [
+    {
+      "path": "Assets/Existing/Duplicate.mat",
+      "reason": "already exists"
+    }
+  ],
+  "durationMs": 2340,
+  "compilationErrors": 0,
+  "warnings": 0
+}
+```
+
+### Unity API
+
+**Primary:** `AssetDatabase.ImportPackage(packagePath, interactive)`
+
+**Fallback for silent import in Unity 6+:** `AssetDatabase.ImportPackageImmediately(packagePath)` (verify availability in implementation phase)
+
+**Content enumeration:** `AssetDatabase.GetPackageContents(packagePath)` (if available; else reflection fallback to extract tar.gz metadata)
+
+### Rollback Strategy
+
+**Pre-import enumeration:**
+1. Call `AssetDatabase.GetPackageContents(packagePath)` to list all assets the package would import
+2. Store list in transaction log with transaction ID
+3. Filter out assets already present in project (to avoid false-positive "created by CRAFT" detection)
+
+**On Undo/Rollback:**
+1. Retrieve stored asset list from transaction log
+2. Iterate each asset and call `AssetDatabase.DeleteAsset(assetPath)`
+3. Emit trace entry per deleted file (verbose logging)
+4. Return success
+
+**Best-effort caveat:** Unity triggers async C# compilation after import. If rollback is requested during compilation, metadata may be stale. Document as "best-effort rollback; verify clean state via `Craft_Status` post-rollback".
+
+### Transaction Safety
+
+**Execution flow:**
+
+```
+1. Fetch package (if URL)
+2. Enumerate package contents → cache in transaction log
+3. AssetDatabase.StartAssetEditing()
+4. Call AssetDatabase.ImportPackage(packagePath, interactive)
+5. AssetDatabase.StopAssetEditing()  ← triggers reimport
+6. Poll Craft_ReadConsoleLog for compile errors (1-3 sec delay)
+7. If errors detected: return partial success + error list
+8. Register transaction with TransactionManager
+9. Return transactionId + importedAssetPaths
+```
+
+**Rollback:**
+```
+1. Retrieve cached asset list from transaction log
+2. AssetDatabase.StartAssetEditing()
+3. For each asset: AssetDatabase.DeleteAsset(assetPath)
+4. AssetDatabase.StopAssetEditing()
+5. Emit trace entries per file
+```
+
+### Error Modes
+
+| Error | Detection | Response |
+|-------|-----------|----------|
+| File not found | `!File.Exists(packagePath)` | `success: false, error: "Package file not found at {path}"` |
+| Invalid package | `AssetDatabase.ImportPackage()` exception | `success: false, error: "Invalid .unitypackage format: {exception}"` |
+| URL fetch failure | Network timeout, 404, SSL error | `success: false, error: "Failed to fetch {url}: {statusCode}"` |
+| Dependency missing | Post-import console: unresolved reference | `success: true (partial), warnings: "Missing dependencies detected"` |
+| Compile error cascade | `Craft_ReadConsoleLog` post-import errors | `success: true (partial), compilationErrors: N, error: "Asset import succeeded but {N} compile errors detected"` |
+| Rollback during compilation | Async compile in progress | `success: false, error: "Rollback requested during asset compilation; best-effort deletion attempted. Verify state via Craft_Status."` |
+
+### Integration with Assets_InstallUPM
+
+When plugin inspection detects legacy package signature:
+- File ends in `.unitypackage`
+- OR manifest file not present (fallback check)
+- OR URL resolves to `.unitypackage` MIME type
+
+Route to `Craft_ImportUnityPackage` instead of UPM manifest edit path. Example logic in plugin dispatcher:
+
+```csharp
+if (packagePath.EndsWith(".unitypackage", StringComparison.OrdinalIgnoreCase) ||
+    (isUrl && await GetUrlMimeType(packagePath) == "application/x-unitypackage"))
+{
+    return await MCP.CallTool("Craft_ImportUnityPackage", new { packagePath, importMode = "silent" });
+}
+else
+{
+    // Existing UPM path (Assets_InstallUPM)
+}
+```
+
+### Known Limitations
+
+1. **Async Compilation:** Unity fires async C# compilation after `StopAssetEditing()`. The operation returns once import is initiated but before compilation completes. Agents should call `Craft_Status` afterward to verify clean state (0 errors).
+   
+2. **Rollback Window:** Cached asset list is only valid during the transaction TTL (default: 24 hours). If rollback is requested after TTL expiry, transaction manager logs a warning and returns partial success.
+
+3. **URL Fetch Size:** Downloaded packages are stored in temp. No size limit enforced; very large packages (>2GB) may exhaust disk. Document as "use with caution for packages >500MB".
+
+4. **Import Mode Interaction:** `interactive` mode requires editor in foreground (user sees dialog). In headless/CI scenarios, use `silent` or `replace-without-asking`.
+
+### Return Metadata
+
+**`transactionId`:** Unique token for this import session. Use for:
+- Rollback requests: `Craft_Rollback(transactionId)`
+- Status queries: `Craft_Status(transactionId)`
+- Trace retrieval: `Craft_CommandLog(transactionId)`
+
+**`importedAssetPaths`:** List of assets CRAFT imported. Pre-existing assets NOT included (caller can compare with `.Before` snapshot if needed).
+
+**`skippedAssets`:** Array of skipped imports (conflicts, permission errors). Reason explains why (e.g., "already exists", "read-only", "invalid format").
+
+**`compilationErrors` / `warnings`:** Counts from `Craft_ReadConsoleLog` polling post-import. If > 0, recommend agent run `Craft_ReadConsoleLog(sinceTs: importStartTime)` for detailed error list.
+
+### File Layout
+
+```
+Editor/
+├── Operations/
+│   ├── ImportPackage/
+│   │   ├── ImportUnityPackageOp.cs        (ICraftOperation implementation)
+│   │   └── PackageContentsCache.cs        (helper: enumerate & track assets)
+│   │
+├── McpTools/
+│   └── ImportPackageTools.cs              (MCP tool registration)
+│
+├── Models/
+│   └── PackageImportResult.cs             (strongly-typed result shape)
+```
+
+### Testing Strategy
+
+**Unit Tests:**
+- Path validation (absolute, relative, invalid)
+- URL fetch simulation (mock HttpClient)
+- Empty package (no assets)
+- Duplicate asset handling (replace vs. skip)
+
+**Integration Tests:**
+- Create real `.unitypackage` (tar.gz) with test assets
+- Import into test project
+- Verify asset list matches enumeration
+- Trigger rollback; verify deletion
+- Compile error detection post-import
+
+### Security Considerations
+
+- **URL validation:** Only allow HTTP(S). Reject file://, ftp://, UNC paths.
+- **Temp file cleanup:** Always delete fetched packages from temp, even on error. Use `try-finally`.
+- **Package inspection:** Scan for suspicious file paths in enumeration (e.g., `../../../System32`). Reject with "traversal attack detected".
+
+---
+
 ## Related Documents
 
 - [screen-control.md](screen-control.md) — Vision pipeline using Inspect ops
@@ -604,6 +803,7 @@ public void SetModelImporter_Rollback()
 2. **Console Log Circular Buffer:** Size limit (proposed: 10MB)? Format (proposed: JSON array)?
 3. **Profile Format:** pprof binary or custom JSON? (Proposed: pprof for tooling compatibility)
 4. **ImportSettings Rollback Window:** How long to keep cached importer states? (Proposed: transaction TTL, max 24 hours)
+5. **ImportUnityPackage Poll Interval:** How often to poll `ReadConsoleLog` post-import for compile errors? (Proposed: 500ms, max 3 retries, 1.5s total)
 
 ---
 
@@ -618,10 +818,11 @@ public void SetModelImporter_Rollback()
 | ProfileCapture | No built-in perf snapshot tool | Regression detection, optimization | 1 |
 | SetTextureImporter | Manual texture optimization tedious to automate | Batch memory optimization, CI/CD | 2 |
 | SetModelImporter | Model import config hard to version control | Consistent imports, LOD automation | 2 |
+| ImportUnityPackage | 90% of Asset Store is legacy format; manual import blocks automation | Unlocks automated asset library, closes W5 | 3 |
 
 ---
 
-**Document Status:** Specification (no C# code provided; intended for upstream PR design review)  
+**Document Status:** Specification + roadmap (v0.3 planned, C# stub provided)  
 **Last Updated:** 2026-04-18  
 **Target:** craft-unity UPM package, com.skywalker.craft  
 **Related Plugin:** ccplugin-unity-craft v1.0

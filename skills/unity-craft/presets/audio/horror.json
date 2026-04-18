@@ -1,0 +1,153 @@
+{
+  "preset_name": "horror",
+  "version": "1.0",
+  "target": "AudioMixer",
+  "_note": "Heavy low-pass and reverb for atmospheric tension. Designed for horror games with sidechain-triggered scares.",
+  "groups": [
+    {
+      "name": "Master",
+      "parent": null,
+      "attenuation": 0
+    },
+    {
+      "name": "Ambient",
+      "parent": "Master",
+      "attenuation": 0
+    },
+    {
+      "name": "SFX",
+      "parent": "Master",
+      "attenuation": 0
+    },
+    {
+      "name": "Voice",
+      "parent": "Master",
+      "attenuation": 0
+    }
+  ],
+  "exposed_parameters": [
+    {
+      "name": "Master Volume",
+      "controlGroup": "Master",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "Ambient Volume",
+      "controlGroup": "Ambient",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "SFX Volume",
+      "controlGroup": "SFX",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "Voice Volume",
+      "controlGroup": "Voice",
+      "controlProperty": "Volume"
+    }
+  ],
+  "effects": [
+    {
+      "group": "Master",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Reverb",
+      "enabled": true,
+      "parameters": {
+        "dryLevel": 0,
+        "room": 0.9,
+        "roomHF": -600,
+        "decayTime": 4,
+        "decayHFRatio": 0.7,
+        "reflectionLevel": -800,
+        "reflectionDelay": 0.08,
+        "reverbLevel": -600,
+        "reverbDelay": 0.05
+      }
+    },
+    {
+      "group": "Master",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Compressor",
+      "enabled": true,
+      "parameters": {
+        "threshold": -25,
+        "ratio": 1.5,
+        "attackTime": 0.02,
+        "releaseTime": 0.8,
+        "makeupGain": 0
+      }
+    },
+    {
+      "group": "SFX",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "LowPass",
+      "enabled": true,
+      "parameters": {
+        "cutoffFrequency": 100,
+        "resonanceQ": 3
+      }
+    },
+    {
+      "group": "SFX",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Distortion",
+      "enabled": true,
+      "parameters": {
+        "level": 0.3
+      }
+    },
+    {
+      "group": "Voice",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Compressor",
+      "enabled": true,
+      "parameters": {
+        "threshold": -18,
+        "ratio": 2,
+        "attackTime": 0.05,
+        "releaseTime": 0.2,
+        "makeupGain": 0
+      }
+    },
+    {
+      "group": "Voice",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "HighPass",
+      "enabled": true,
+      "parameters": {
+        "cutoffFrequency": 80,
+        "resonanceQ": 1
+      }
+    }
+  ],
+  "snapshots": [
+    {
+      "name": "Ambient",
+      "overrides": {
+        "Master Volume": -3,
+        "Ambient Volume": 0,
+        "SFX Volume": -6,
+        "Voice Volume": -20
+      }
+    },
+    {
+      "name": "PlayerHit",
+      "overrides": {
+        "Master Volume": -12,
+        "Ambient Volume": -15,
+        "SFX Volume": 6,
+        "Voice Volume": 3
+      }
+    },
+    {
+      "name": "AmbientTension",
+      "overrides": {
+        "Master Volume": -3,
+        "Ambient Volume": -3,
+        "SFX Volume": -9,
+        "Voice Volume": -20
+      }
+    }
+  ]
+}

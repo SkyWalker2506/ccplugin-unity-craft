@@ -1,0 +1,328 @@
+{
+  "m_Version": 1,
+  "m_Name": "player-thirdperson",
+  "m_ControlSchemes": [
+    {
+      "Name": "Keyboard&Mouse",
+      "Devices": [
+        {
+          "devicePath": "<Keyboard>",
+          "isOR": false
+        },
+        {
+          "devicePath": "<Mouse>",
+          "isOR": false
+        }
+      ]
+    },
+    {
+      "Name": "Gamepad",
+      "Devices": [
+        {
+          "devicePath": "<Gamepad>",
+          "isOR": false
+        }
+      ]
+    }
+  ],
+  "m_AssetGuid": "",
+  "m_Actions": [
+    {
+      "m_Name": "Move",
+      "m_Type": 1,
+      "m_ExpectedControlType": "Vector2",
+      "m_Id": "a1a2a3a4-b1b1-b1b1-b1b1-b1b1b1b1b1b1",
+      "m_Processors": "NormalizeVector2",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "c1c2c3c4-c1c1-c1c1-c1c1-c1c1c1c1c1c1",
+          "m_Path": "2DVector(up=<Keyboard>/w,down=<Keyboard>/s,left=<Keyboard>/a,right=<Keyboard>/d)",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Move",
+          "m_IsComposite": true,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "WASD",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "d1d2d3d4-d1d1-d1d1-d1d1-d1d1d1d1d1d1",
+          "m_Path": "<Gamepad>/leftStick",
+          "m_Interactions": "",
+          "m_Processors": "StickDeadzone(min=0.1,max=1),NormalizeVector2",
+          "m_Groups": "Gamepad",
+          "m_Action": "Move",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Left Stick",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Camera",
+      "m_Type": 1,
+      "m_ExpectedControlType": "Vector2",
+      "m_Id": "e1e2e3e4-e1e1-e1e1-e1e1-e1e1e1e1e1e1",
+      "m_Processors": "",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "f1f2f3f4-f1f1-f1f1-f1f1-f1f1f1f1f1f1",
+          "m_Path": "<Mouse>/delta",
+          "m_Interactions": "",
+          "m_Processors": "ScaleVector2(x=0.05,y=0.05)",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Camera",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Mouse Delta",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "a2a2a2a2-a2a2-a2a2-a2a2-a2a2a2a2a2a2",
+          "m_Path": "<Gamepad>/rightStick",
+          "m_Interactions": "",
+          "m_Processors": "StickDeadzone(min=0.1,max=1),ScaleVector2(x=2,y=2)",
+          "m_Groups": "Gamepad",
+          "m_Action": "Camera",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Right Stick",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Jump",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "c2c2c2c2-c2c2-c2c2-c2c2-c2c2c2c2c2c2",
+          "m_Path": "<Keyboard>/space",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Jump",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Space",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2",
+          "m_Path": "<Gamepad>/buttonSouth",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "Jump",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Button South (A)",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Attack",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "e2e2e2e2-e2e2-e2e2-e2e2-e2e2e2e2e2e2",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "f2f2f2f2-f2f2-f2f2-f2f2-f2f2f2f2f2f2",
+          "m_Path": "<Mouse>/leftButton",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Attack",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Left Click",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "a3a3a3a3-a3a3-a3a3-a3a3-a3a3a3a3a3a3",
+          "m_Path": "<Gamepad>/buttonEast",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "Attack",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Button East (B)",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Dodge",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "b3b3b3b3-b3b3-b3b3-b3b3-b3b3b3b3b3b3",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "c3c3c3c3-c3c3-c3c3-c3c3-c3c3c3c3c3c3",
+          "m_Path": "<Keyboard>/shift",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Dodge",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Left Shift",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "d3d3d3d3-d3d3-d3d3-d3d3-d3d3d3d3d3d3",
+          "m_Path": "<Gamepad>/buttonWest",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "Dodge",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Button West (X)",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Target",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "e3e3e3e3-e3e3-e3e3-e3e3-e3e3e3e3e3e3",
+      "m_Processors": "",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "f3f3f3f3-f3f3-f3f3-f3f3-f3f3f3f3f3f3",
+          "m_Path": "<Mouse>/rightButton",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Target",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Right Click",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "a4a4a4a4-a4a4-a4a4-a4a4-a4a4a4a4a4a4",
+          "m_Path": "<Gamepad>/buttonNorth",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "Target",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Button North (Y)",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Interact",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "b4b4b4b4-b4b4-b4b4-b4b4-b4b4b4b4b4b4",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "c4c4c4c4-c4c4-c4c4-c4c4-c4c4c4c4c4c4",
+          "m_Path": "<Keyboard>/e",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Interact",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "E",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "d4d4d4d4-d4d4-d4d4-d4d4-d4d4d4d4d4d4",
+          "m_Path": "<Gamepad>/buttonEast",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "Interact",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Button East (B)",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Menu",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "e4e4e4e4-e4e4-e4e4-e4e4-e4e4e4e4e4e4",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "f4f4f4f4-f4f4-f4f4-f4f4-f4f4f4f4f4f4",
+          "m_Path": "<Keyboard>/escape",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Menu",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Escape",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "a5a5a5a5-a5a5-a5a5-a5a5-a5a5a5a5a5a5",
+          "m_Path": "<Gamepad>/start",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "Menu",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Start",
+          "m_IsHidden": false
+        }
+      ]
+    }
+  ],
+  "m_ControlSchemesOrder": []
+}

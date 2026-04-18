@@ -1,0 +1,164 @@
+{
+  "preset_name": "stylized-arcade",
+  "version": "1.0",
+  "target": "AudioMixer",
+  "_note": "Upbeat, saturated mix for arcade and retro games. Emphasis on punchy mid-range and presence.",
+  "groups": [
+    {
+      "name": "Master",
+      "parent": null,
+      "attenuation": 0
+    },
+    {
+      "name": "Music",
+      "parent": "Master",
+      "attenuation": 0
+    },
+    {
+      "name": "SFX",
+      "parent": "Master",
+      "attenuation": 0
+    },
+    {
+      "name": "UI",
+      "parent": "Master",
+      "attenuation": 0
+    },
+    {
+      "name": "Voice",
+      "parent": "Master",
+      "attenuation": 0
+    }
+  ],
+  "exposed_parameters": [
+    {
+      "name": "Master Volume",
+      "controlGroup": "Master",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "Music Volume",
+      "controlGroup": "Music",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "SFX Volume",
+      "controlGroup": "SFX",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "UI Volume",
+      "controlGroup": "UI",
+      "controlProperty": "Volume"
+    },
+    {
+      "name": "Voice Volume",
+      "controlGroup": "Voice",
+      "controlProperty": "Volume"
+    }
+  ],
+  "effects": [
+    {
+      "group": "Master",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Saturation",
+      "enabled": true,
+      "parameters": {
+        "drive": 0.4,
+        "tone": 0.6
+      }
+    },
+    {
+      "group": "Music",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Parametric EQ",
+      "enabled": true,
+      "parameters": {
+        "centerFreq_1k": 1000,
+        "gain_1k": 4,
+        "centerFreq_4k": 4000,
+        "gain_4k": 3,
+        "centerFreq_100hz": 100,
+        "gain_100hz": 0
+      }
+    },
+    {
+      "group": "Music",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Compressor",
+      "enabled": true,
+      "parameters": {
+        "threshold": -12,
+        "ratio": 4,
+        "attackTime": 0.01,
+        "releaseTime": 0.4,
+        "makeupGain": 0
+      }
+    },
+    {
+      "group": "SFX",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Saturation",
+      "enabled": true,
+      "parameters": {
+        "drive": 0.5,
+        "tone": 0.5
+      }
+    },
+    {
+      "group": "SFX",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "HighPass",
+      "enabled": true,
+      "parameters": {
+        "cutoffFrequency": 50,
+        "resonanceQ": 1
+      }
+    },
+    {
+      "group": "UI",
+      "effectType": "AudioMixerEffectController",
+      "effectName": "Compressor",
+      "enabled": true,
+      "parameters": {
+        "threshold": -16,
+        "ratio": 2,
+        "attackTime": 0.005,
+        "releaseTime": 0.15,
+        "makeupGain": 0
+      }
+    }
+  ],
+  "snapshots": [
+    {
+      "name": "Gameplay",
+      "overrides": {
+        "Master Volume": 0,
+        "Music Volume": 0,
+        "SFX Volume": 0,
+        "UI Volume": -3,
+        "Voice Volume": 0
+      }
+    },
+    {
+      "name": "MenuFocus",
+      "overrides": {
+        "Master Volume": 0,
+        "Music Volume": -6,
+        "SFX Volume": -3,
+        "UI Volume": 3,
+        "Voice Volume": 0
+      }
+    },
+    {
+      "name": "Victory",
+      "overrides": {
+        "Master Volume": 0,
+        "Music Volume": 3,
+        "SFX Volume": 0,
+        "UI Volume": 0,
+        "Voice Volume": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,289 @@
+{
+  "m_Version": 1,
+  "m_Name": "ui-standard",
+  "m_ControlSchemes": [
+    {
+      "Name": "Keyboard&Mouse",
+      "Devices": [
+        {
+          "devicePath": "<Keyboard>",
+          "isOR": false
+        },
+        {
+          "devicePath": "<Mouse>",
+          "isOR": false
+        }
+      ]
+    },
+    {
+      "Name": "Gamepad",
+      "Devices": [
+        {
+          "devicePath": "<Gamepad>",
+          "isOR": false
+        }
+      ]
+    }
+  ],
+  "m_AssetGuid": "",
+  "m_Actions": [
+    {
+      "m_Name": "Navigate",
+      "m_Type": 1,
+      "m_ExpectedControlType": "Vector2",
+      "m_Id": "p1p2p3p4-p1p1-p1p1-p1p1-p1p1p1p1p1p1",
+      "m_Processors": "NormalizeVector2",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "q1q2q3q4-q1q1-q1q1-q1q1-q1q1q1q1q1q1",
+          "m_Path": "2DVector(up=<Keyboard>/upArrow,down=<Keyboard>/downArrow,left=<Keyboard>/leftArrow,right=<Keyboard>/rightArrow)",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Navigate",
+          "m_IsComposite": true,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Arrow Keys",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "r1r2r3r4-r1r1-r1r1-r1r1-r1r1r1r1r1r1",
+          "m_Path": "<Gamepad>/leftStick",
+          "m_Interactions": "",
+          "m_Processors": "StickDeadzone(min=0.2,max=1),NormalizeVector2",
+          "m_Groups": "Gamepad",
+          "m_Action": "Navigate",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Left Stick",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "s1s2s3s4-s1s1-s1s1-s1s1-s1s1s1s1s1s1",
+          "m_Path": "<Gamepad>/dpad",
+          "m_Interactions": "",
+          "m_Processors": "NormalizeVector2",
+          "m_Groups": "Gamepad",
+          "m_Action": "Navigate",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "D-Pad",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Submit",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "t1t2t3t4-t1t1-t1t1-t1t1-t1t1t1t1t1t1",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "u1u2u3u4-u1u1-u1u1-u1u1-u1u1u1u1u1u1",
+          "m_Path": "<Keyboard>/enter",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Submit",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Enter",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "v1v2v3v4-v1v1-v1v1-v1v1-v1v1v1v1v1v1",
+          "m_Path": "<Keyboard>/space",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Submit",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Space",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "w1w2w3w4-w1w1-w1w1-w1w1-w1w1w1w1w1w1",
+          "m_Path": "<Gamepad>/buttonSouth",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "Submit",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Button South (A)",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Cancel",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "x1x2x3x4-x1x1-x1x1-x1x1-x1x1x1x1x1x1",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "y1y2y3y4-y1y1-y1y1-y1y1-y1y1y1y1y1y1",
+          "m_Path": "<Keyboard>/escape",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Cancel",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Escape",
+          "m_IsHidden": false
+        },
+        {
+          "m_Name": "",
+          "m_Id": "z1z2z3z4-z1z1-z1z1-z1z1-z1z1z1z1z1z1",
+          "m_Path": "<Gamepad>/buttonEast",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Gamepad",
+          "m_Action": "Cancel",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Button East (B)",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Point",
+      "m_Type": 1,
+      "m_ExpectedControlType": "Vector2",
+      "m_Id": "a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1",
+      "m_Processors": "",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "b1b1b1b1-b1b1-b1b1-b1b1-b1b1b1b1b1b1",
+          "m_Path": "<Mouse>/position",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Point",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Mouse Position",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "Click",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "c1c1c1c1-c1c1-c1c1-c1c1-c1c1c1c1c1c1",
+      "m_Processors": "",
+      "m_Interactions": "Press(pressPoint=0.5)",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "d1d1d1d1-d1d1-d1d1-d1d1-d1d1d1d1d1d1",
+          "m_Path": "<Mouse>/leftButton",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "Click",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Left Click",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "RightClick",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "e1e1e1e1-e1e1-e1e1-e1e1-e1e1e1e1e1e1",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "f1f1f1f1-f1f1-f1f1-f1f1-f1f1f1f1f1f1",
+          "m_Path": "<Mouse>/rightButton",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "RightClick",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Right Click",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "MiddleClick",
+      "m_Type": 0,
+      "m_ExpectedControlType": "Button",
+      "m_Id": "g1g1g1g1-g1g1-g1g1-g1g1-g1g1g1g1g1g1",
+      "m_Processors": "",
+      "m_Interactions": "Press",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "h1h1h1h1-h1h1-h1h1-h1h1-h1h1h1h1h1h1",
+          "m_Path": "<Mouse>/middleButton",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "MiddleClick",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Middle Click",
+          "m_IsHidden": false
+        }
+      ]
+    },
+    {
+      "m_Name": "ScrollWheel",
+      "m_Type": 1,
+      "m_ExpectedControlType": "Axis",
+      "m_Id": "i1i1i1i1-i1i1-i1i1-i1i1-i1i1i1i1i1i1",
+      "m_Processors": "Normalize(min=-1,max=1)",
+      "m_Interactions": "",
+      "m_SingletonActionBindings": [],
+      "m_Bindings": [
+        {
+          "m_Name": "",
+          "m_Id": "j1j1j1j1-j1j1-j1j1-j1j1-j1j1j1j1j1j1",
+          "m_Path": "<Mouse>/scroll/y",
+          "m_Interactions": "",
+          "m_Processors": "",
+          "m_Groups": "Keyboard&Mouse",
+          "m_Action": "ScrollWheel",
+          "m_IsComposite": false,
+          "m_IsPartOfComposite": false,
+          "m_DisplayName": "Mouse Scroll Y",
+          "m_IsHidden": false
+        }
+      ]
+    }
+  ],
+  "m_ControlSchemesOrder": []
+}
