@@ -1,0 +1,46 @@
+# Unity project ignore list
+
+# Directories
+Library/
+Temp/
+Logs/
+obj/
+Build/
+Builds/
+Recordings/
+UserSettings/
+
+# Visual Studio / JetBrains / Code Editor
+*.csproj
+*.sln
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Session/Cache
+.unity-craft/
+*.backup
+*.tmp
+
+# User-specific
+LocalPackages/
+
+# Compiled binaries
+*.o
+*.a
+*.so
+*.dll
+*.exe
+
+# Asset Store (optional, but avoid checking in large binary assets)
+Assets/AssetStoreTools*
+
+# Plasticscm metadata
+.plastic/
+.plasticignore

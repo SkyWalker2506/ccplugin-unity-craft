@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "com.skywalker.craft": "https://github.com/SkyWalker2506/craft-unity.git#v0.2.0",
+    "com.unity.ai.assistant": "2.0.0",
+    "com.unity.inputsystem": "1.11.0",
+    "com.unity.cinemachine": "3.1.1",
+    "com.unity.probuilder": "6.0.4",
+    "com.unity.ai.navigation": "2.0.5",
+    "com.unity.render-pipelines.universal": "17.0.3",
+    "com.unity.localization": "1.5.2",
+    "com.unity.timeline": "1.8.7",
+    "com.unity.test-framework": "1.4.5"
+  }
+}
