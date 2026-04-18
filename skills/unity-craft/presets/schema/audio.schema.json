@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Audio Preset",
+  "description": "Schema for Unity AudioMixer presets (groups, effects, snapshots)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["preset_name", "version", "target", "groups", "effects"],
+  "properties": {
+    "preset_name": { "type": "string" },
+    "version": { "type": "string" },
+    "target": { "type": "string", "enum": ["AudioMixer"] },
+    "_note": { "type": "string" },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "attenuation"],
+        "properties": {
+          "name": { "type": "string" },
+          "parent": { "type": ["string", "null"] },
+          "attenuation": { "type": "number" }
+        }
+      }
+    },
+    "exposed_parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "controlGroup", "controlProperty"],
+        "properties": {
+          "name": { "type": "string" },
+          "controlGroup": { "type": "string" },
+          "controlProperty": { "type": "string" }
+        }
+      }
+    },
+    "effects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group", "effectType", "effectName", "enabled"],
+        "properties": {
+          "group": { "type": "string" },
+          "effectType": { "type": "string" },
+          "effectName": { "type": "string" },
+          "enabled": { "type": "boolean" },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "snapshots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "overrides"],
+        "properties": {
+          "name": { "type": "string" },
+          "overrides": {
+            "type": "object",
+            "additionalProperties": { "type": "number" }
+          }
+        }
+      }
+    }
+  }
+}

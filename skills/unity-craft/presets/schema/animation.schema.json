@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Animation Preset",
+  "description": "Schema for Cinemachine impulse / camera-shake animation presets",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["preset_name", "version", "target", "properties"],
+  "properties": {
+    "preset_name": { "type": "string" },
+    "version": { "type": "string" },
+    "target": { "type": "string" },
+    "requires_unity": { "type": "string" },
+    "description": { "type": "string" },
+    "_note": { "type": "string" },
+    "properties": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["component", "enabled", "noiseProfile", "amplitude", "frequency", "duration"],
+      "properties": {
+        "component": { "type": "string" },
+        "enabled": { "type": "boolean" },
+        "noiseProfile": { "type": "string" },
+        "amplitude": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["curves"],
+          "properties": {
+            "curves": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["keyframes", "interpolation"],
+                "properties": {
+                  "interpolation": {
+                    "type": "string",
+                    "enum": ["smooth", "linear", "constant"]
+                  },
+                  "keyframes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["time", "value"],
+                      "properties": {
+                        "time": { "type": "number" },
+                        "value": { "type": "number" },
+                        "inTangent": { "type": "number" },
+                        "outTangent": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "frequency": { "type": "number" },
+        "duration": { "type": "number" },
+        "sustainTime": { "type": "number" }
+      }
+    }
+  }
+}

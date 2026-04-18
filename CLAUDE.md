@@ -26,6 +26,9 @@ Detay: `skills/unity-craft/SKILL.md` + `skills/unity-craft/tools/*.md`
 | Performance (mobile-specific) | B32 unity-mobile-optimizer | gpt-5.4 |
 | Asset inventory + UPM/OpenUPM/Asset Store araştırma | E16 asset-store-curator | gemini-3.1-pro |
 | Gameplay kodu | B19 unity-developer | gpt-5.4 |
+| Combat system (hitbox/damage/HP/skills) | B19 unity-developer | gpt-5.4 |
+| Match loop (win/lose/restart/scoreboard) | B19 + D11 | gpt-5.4 |
+| Local multiplayer input (dual keyboard) | B36 unity-input-system | gpt-5.4 |
 
 Claude orchestration minimum — implementation Gemini/GPT agent'larına yönlendirilir.
 

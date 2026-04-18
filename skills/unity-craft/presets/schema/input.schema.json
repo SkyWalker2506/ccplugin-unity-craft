@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Input Preset",
+  "description": "Schema for Unity InputSystem .inputactions asset presets (open-ended Unity format)",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["m_Version", "m_Name", "m_Actions"],
+  "properties": {
+    "m_Version": { "type": "integer" },
+    "m_Name": { "type": "string" },
+    "m_AssetGuid": { "type": "string" },
+    "m_ControlSchemesOrder": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "m_ControlSchemes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["Name", "Devices"],
+        "properties": {
+          "Name": { "type": "string" },
+          "Devices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "devicePath": { "type": "string" },
+                "isOR": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m_Actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["m_Name", "m_Type", "m_Id", "m_Bindings"],
+        "properties": {
+          "m_Name": { "type": "string" },
+          "m_Type": { "type": "integer" },
+          "m_ExpectedControlType": { "type": "string" },
+          "m_Id": { "type": "string" },
+          "m_Processors": { "type": "string" },
+          "m_Interactions": { "type": "string" },
+          "m_SingletonActionBindings": { "type": "array" },
+          "m_Bindings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true,
+              "required": ["m_Name", "m_Id", "m_Path", "m_Action"],
+              "properties": {
+                "m_Name": { "type": "string" },
+                "m_Id": { "type": "string" },
+                "m_Path": { "type": "string" },
+                "m_Interactions": { "type": "string" },
+                "m_Processors": { "type": "string" },
+                "m_Groups": { "type": "string" },
+                "m_Action": { "type": "string" },
+                "m_IsComposite": { "type": "boolean" },
+                "m_IsPartOfComposite": { "type": "boolean" },
+                "m_DisplayName": { "type": "string" },
+                "m_IsHidden": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

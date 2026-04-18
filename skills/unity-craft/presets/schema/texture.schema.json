@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Texture Preset",
+  "description": "Schema for Unity TextureImporter presets with platform overrides",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["preset_name", "version", "applies_to", "overrides"],
+  "properties": {
+    "preset_name": { "type": "string" },
+    "version": { "type": "string" },
+    "applies_to": { "type": "string", "enum": ["TextureImporter"] },
+    "target_platform": { "type": "string" },
+    "description": { "type": "string" },
+    "applied_via": { "type": "string" },
+    "overrides": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "textureType": { "type": "string" },
+        "textureShape": { "type": "string" },
+        "maxTextureSize": { "type": "integer" },
+        "mipmaps": { "type": "boolean" },
+        "mipmapEnabled": { "type": "boolean" },
+        "mipmapFilter": { "type": "string", "enum": ["Box", "Kaiser", "Linear"] },
+        "mipmapFadeDistanceStart": { "type": "integer" },
+        "mipmapFadeDistanceEnd": { "type": "integer" },
+        "sRGBTexture": { "type": "boolean" },
+        "wrapModeU": { "type": "string", "enum": ["Repeat", "Clamp", "Mirror", "MirrorOnce"] },
+        "wrapModeV": { "type": "string", "enum": ["Repeat", "Clamp", "Mirror", "MirrorOnce"] },
+        "wrapModeW": { "type": "string", "enum": ["Repeat", "Clamp", "Mirror", "MirrorOnce"] },
+        "filterMode": { "type": "string", "enum": ["Point", "Bilinear", "Trilinear"] },
+        "anisotropicLevel": { "type": "integer" },
+        "spritePackingTag": { "type": "string" },
+        "readable": { "type": "boolean" },
+        "streamingMipmaps": { "type": "boolean" },
+        "streamingMipmapsPriority": { "type": "integer" },
+        "ignoreMipmapLimit": { "type": "boolean" },
+        "platformOverrides": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "estimated_impact": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  }
+}

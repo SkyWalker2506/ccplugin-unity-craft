@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PostFX Preset",
+  "description": "Schema for post-processing effects presets",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "preset_name",
+    "version",
+    "pipeline",
+    "volume_components"
+  ],
+  "properties": {
+    "preset_name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
+    },
+    "pipeline": {
+      "type": "string",
+      "enum": [
+        "unarmed",
+        "URP",
+        "HDRP",
+        "both"
+      ]
+    },
+    "volume_components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "enabled",
+          "properties"
+        ],
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "properties": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "_note": {
+      "type": "string"
+    },
+    "hdrp_only": {
+      "type": "boolean"
+    }
+  }
+}

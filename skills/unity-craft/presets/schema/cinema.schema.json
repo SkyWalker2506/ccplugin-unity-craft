@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cinema Preset",
+  "description": "Schema for Cinemachine camera presets",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "preset_name",
+    "version",
+    "target",
+    "properties"
+  ],
+  "properties": {
+    "preset_name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
+    },
+    "target": {
+      "type": "string",
+      "enum": [
+        "CinemachineCamera"
+      ]
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "m_Lens",
+        "m_Body",
+        "m_Aim",
+        "m_ClearShot",
+        "m_Noise",
+        "m_Damping",
+        "m_Priority"
+      ],
+      "properties": {
+        "m_Lens": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "FieldOfView",
+            "NearClipPlane",
+            "FarClipPlane",
+            "dutch"
+          ],
+          "properties": {
+            "FieldOfView": {
+              "type": "number"
+            },
+            "NearClipPlane": {
+              "type": "number"
+            },
+            "FarClipPlane": {
+              "type": "number"
+            },
+            "dutch": {
+              "type": "number"
+            }
+          }
+        },
+        "m_Body": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "properties": {
+              "type": "object"
+            }
+          }
+        },
+        "m_Aim": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "properties": {
+              "type": "object"
+            }
+          }
+        },
+        "m_ClearShot": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabled",
+            "avoidObstacles",
+            "distanceLimit"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "avoidObstacles": {
+              "type": "boolean"
+            },
+            "distanceLimit": {
+              "type": "number"
+            }
+          }
+        },
+        "m_Noise": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabled",
+            "Frequency",
+            "Amplitude",
+            "FilterSize"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "Frequency": {
+              "type": "number"
+            },
+            "Amplitude": {
+              "type": "number"
+            },
+            "FilterSize": {
+              "type": "number"
+            }
+          }
+        },
+        "m_Damping": {
+          "type": "number"
+        },
+        "m_Priority": {
+          "type": "number"
+        }
+      }
+    },
+    "_note": {
+      "type": "string"
+    },
+    "hdrp_only": {
+      "type": "boolean"
+    }
+  }
+}
