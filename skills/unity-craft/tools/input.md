@@ -144,6 +144,56 @@ Generated files:
 
 The backing script (`RebindMenuController`) is fully functional: it hooks into `InputAction.started` callbacks, manages modal state, and invokes the save extension on user confirmation. Returns file paths and transaction ID. **UI Toolkit only** — does not generate legacy OnGUI menus.
 
+### Input_CreateDualScheme
+
+Setup two independent keyboard input schemes on the same machine for local multiplayer.
+
+```
+Input_CreateDualScheme(
+  player1Keys: { move: "wasd"|"arrows", jump: string, attack: string, skill: string },
+  player2Keys: { move: "wasd"|"arrows", jump: string, attack: string, skill: string },
+  playerCount?: 2 | 3 | 4,
+  inputMode?: "simultaneous" | "split-screen",
+  conflictResolution?: "allow" | "block-shared"
+) → {
+  p1AssetPath: string,
+  p2AssetPath: string,
+  handlerPath: string,
+  conflicts: string[],
+  transactionId: string
+}
+```
+
+Setup two independent keyboard input schemes on the same machine for local multiplayer. Parameters:
+- **player1Keys** — P1 binding map: `move` preset (`"wasd"` or `"arrows"`), plus individual key strings for jump/attack/skill
+- **player2Keys** — P2 binding map, same structure
+- **playerCount** — 2 / 3 / 4 (default 2; 3–4 players require additional key maps passed as extended parameters)
+- **inputMode** — `"simultaneous"` (both PlayerInput components read same frame, default) or `"split-screen"` (inputs routed by camera region)
+- **conflictResolution** — `"allow"` (shared keys permitted) or `"block-shared"` (validate no key overlap between players)
+
+**Pipeline:**
+
+1. **B36** (unity-input-system, gpt-5.4) generates:
+   - `Assets/Input/PlayerInput_P1.inputactions` — P1 bindings only
+   - `Assets/Input/PlayerInput_P2.inputactions` — P2 bindings only
+   - `Assets/Input/DualInputHandler.cs` — instantiates 2 separate `InputActionAsset` instances at runtime, routes callbacks to the correct `PlayerInput` component per player GO
+2. **Craft_Execute** — attaches `PlayerInput` component to each player GameObject, assigns respective `.inputactions` asset
+3. **Conflict check** — if `conflictResolution == "block-shared"`, B36 validates no key path overlap between P1 and P2 binding sets before generating assets; returns `conflicts[]` list if violations found
+
+**Key insight:** Unity InputSystem requires 2 separate `InputActionAsset` instances (not a shared asset reference) for same-keyboard local multiplayer. A shared asset causes P2 bindings to override P1 at runtime. `DualInputHandler` manages independent enable/disable lifecycle for each asset.
+
+**Example invocation:**
+
+```
+Input_CreateDualScheme(
+  player1Keys: { move: "wasd", jump: "w", attack: "f", skill: "g" },
+  player2Keys: { move: "arrows", jump: "up", attack: "k", skill: "l" },
+  conflictResolution: "block-shared"
+)
+```
+
+---
+
 ## Pipeline & B36 Dispatch Protocol
 
 Input System tool invocations dispatch to **B36 unity-input-system** agent with the following contract:

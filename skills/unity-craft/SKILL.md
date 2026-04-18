@@ -19,7 +19,7 @@ Activate when the user mentions:
 
 ## Extended Capabilities
 
-Eleven tool families extend core CRAFT scene ops:
+Fourteen tool families extend core CRAFT scene ops:
 
 | Family | Tool file | Dispatch target | Purpose |
 |--------|-----------|-----------------|---------|
@@ -32,7 +32,9 @@ Eleven tool families extend core CRAFT scene ops:
 | **Optimization** | [`tools/optimization.md`](tools/optimization.md) | B53 unity-performance-analyzer | Profile + batch + textures + LOD + quality + purge |
 | **Audio** | [`tools/audio.md`](tools/audio.md) | B26 unity-audio-engineer | AudioMixer groups, snapshots, spatial setup, import presets |
 | **Asset Store** | [`tools/asset-store.md`](tools/asset-store.md) | E16 asset-store-curator | Library inventory + UPM/OpenUPM/Git research + install |
-| **Input System** | [`tools/input.md`](tools/input.md) | B36 unity-input-system | Action maps + bindings + UI Toolkit rebind UI |
+| **Input System** | [`tools/input.md`](tools/input.md) | B36 unity-input-system | Action maps + bindings + dual-keyboard local multiplayer |
+| **Combat System** | [`tools/combat-system.md`](tools/combat-system.md) | B19 unity-developer | Hitbox + damage + knockback + skills + HP — any genre |
+| **Match System** | [`tools/match-system.md`](tools/match-system.md) | B19 + D11 | Win condition + score + restart + victory UI |
 | **Playtest** | [`tools/playtest.md`](tools/playtest.md) | A14 + G13 + B53 | Enter Play mode, scripted scenarios, sampled perf |
 | **Critique** | [`tools/critique.md`](tools/critique.md) | G13 + specialist per scope | Self-scorecard UI/level/assets/hierarchy |
 
