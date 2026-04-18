@@ -19,10 +19,11 @@ Activate when the user mentions:
 
 ## Extended Capabilities
 
-Nine tool families extend core CRAFT scene ops:
+Eleven tool families extend core CRAFT scene ops:
 
 | Family | Tool file | Dispatch target | Purpose |
 |--------|-----------|-----------------|---------|
+| **Game Director** | [`tools/game-director.md`](tools/game-director.md) | A14 game-director | GDD → game pipeline — DAG, dispatch, critique loop, playtest |
 | **Design Import** | [`tools/import-design-bundle.md`](tools/import-design-bundle.md) | D11 unity-ui-developer | Claude Design handoff bundle → UXML + USS + UIDocument |
 | **Screen Control** | [`tools/screen-control.md`](tools/screen-control.md) | G13 vision-action-operator | Capture + analyze + act (autonomous, no user instructions) |
 | **Cinematic** | [`tools/cinematic.md`](tools/cinematic.md) | E9 unity-cinematic-director | Cinemachine VCams + PostFX presets + shot capture |
@@ -32,6 +33,8 @@ Nine tool families extend core CRAFT scene ops:
 | **Audio** | [`tools/audio.md`](tools/audio.md) | B26 unity-audio-engineer | AudioMixer groups, snapshots, spatial setup, import presets |
 | **Asset Store** | [`tools/asset-store.md`](tools/asset-store.md) | E16 asset-store-curator | Library inventory + UPM/OpenUPM/Git research + install |
 | **Input System** | [`tools/input.md`](tools/input.md) | B36 unity-input-system | Action maps + bindings + UI Toolkit rebind UI |
+| **Playtest** | [`tools/playtest.md`](tools/playtest.md) | A14 + G13 + B53 | Enter Play mode, scripted scenarios, sampled perf |
+| **Critique** | [`tools/critique.md`](tools/critique.md) | G13 + specialist per scope | Self-scorecard UI/level/assets/hierarchy |
 
 Read the relevant `tools/*.md` file before invoking a capability — each has signature, pipeline, dispatch protocol, and verification.
 

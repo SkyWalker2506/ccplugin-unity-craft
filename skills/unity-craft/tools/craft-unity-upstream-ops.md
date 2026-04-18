@@ -789,6 +789,395 @@ Editor/
 
 ---
 
+## v0.3 Roadmap — Play Mode Automation
+
+Unity Editor's PlayMode lifecycle can be controlled via `UnityEditor.EditorApplication.isPlaying` and `EnterPlayMode()`/`ExitPlayMode()` APIs. Combined with InputSystem's `InputTestRuntime` or direct `Keyboard.current`/`Mouse.current` manipulation, we can automate smoke/scenario testing and profiling workflows. These new ops make the plugin's Playtest tool family functional, enabling game-director playback simulation and sustained performance sampling during test execution.
+
+### New Operations
+
+#### 1. Craft_EnterPlayMode
+
+Transition the Unity Editor into Play Mode with optional synchronization on completion.
+
+**MCP Tool Name:** `Craft_EnterPlayMode`
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Notes |
+|-----------|------|----------|---------|-------|
+| `waitForReady` | bool | no | true | If true, block until `isPlaying` is true AND `scriptsCompiled` is true AND scene is loaded. |
+| `maxWaitSec` | float | no | 10.0 | Timeout for ready-wait (0.5–60.0). |
+
+**Returns:**
+
+```json
+{
+  "success": true,
+  "playModeActive": true,
+  "scriptsCompiled": true,
+  "enterDurationMs": 1250,
+  "activeSceneName": "GameScene",
+  "errors": []
+}
+```
+
+**Class:** `EnterPlayModeOp` in `Editor/Operations/PlayMode/`
+
+**Unity API:** 
+- `EditorApplication.EnterPlaymode()` to initiate
+- Poll `EditorApplication.isPlaying` and `EditorApplication.isCompiling` to wait for readiness
+- Poll `SceneManager.GetActiveScene().name` for active scene
+
+**Transaction & Safety:**
+- **No transaction log entry:** PlayMode state is ephemeral and paired with `ExitPlayMode`. Document this as explicit: cannot rollback to pre-play state via transaction framework (editor state, not scene mutation).
+- If already in play mode, return idempotent success (no re-entry cost).
+- Compilation errors block entry; return `success: false` with error list from console.
+
+**Error Modes:**
+
+| Error | Detection | Response |
+|-------|-----------|----------|
+| Compilation error | `EditorApplication.isCompiling` || console has errors | `success: false, errors: [error details from ReadConsoleLog]` |
+| asmdef loop | Circular dependency in Assembly definitions | `success: false, error: "Circular asmdef dependency detected"` |
+| Scene not saved | Scene dirty + import mode mismatch | `success: false, error: "Scene has unsaved changes; save before entering play mode"` |
+| Timeout exceeded | `waitForReady && elapsed > maxWaitSec` | `success: false, error: "Play mode entry timeout after {maxWaitSec}s"` |
+
+---
+
+#### 2. Craft_ExitPlayMode
+
+Exit Play Mode and return to Edit Mode.
+
+**MCP Tool Name:** `Craft_ExitPlayMode`
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Notes |
+|-----------|------|----------|---------|-------|
+| `force` | bool | no | false | If true, exit immediately. If false, allow scripts to finalize (e.g., OnApplicationQuit). |
+
+**Returns:**
+
+```json
+{
+  "success": true,
+  "exitDurationMs": 340,
+  "finalLogEntries": [
+    {
+      "timestamp": "2026-04-18T14:25:30Z",
+      "level": "warning",
+      "message": "Game object destroyed during shutdown"
+    }
+  ]
+}
+```
+
+**Class:** `ExitPlayModeOp` in `Editor/Operations/PlayMode/`
+
+**Unity API:**
+- `EditorApplication.ExitPlaymode()`
+- Poll `EditorApplication.isPlaying` to confirm transition
+
+**Transaction & Safety:** No rollback. Exit is idempotent (if already in edit mode, return success immediately).
+
+**Error Modes:**
+
+| Error | Detection | Response |
+|-------|-----------|----------|
+| Exit timeout | Play mode won't exit after 5s | `success: false, error: "Play mode exit timeout; force=true may be needed"` |
+| Already in Edit Mode | Not in play mode | `success: true` (idempotent) |
+
+---
+
+#### 3. Craft_GetPlayModeStatus
+
+Query the current Play Mode state without mutation.
+
+**MCP Tool Name:** `Craft_GetPlayModeStatus`
+
+**Parameters:** None
+
+**Returns:**
+
+```json
+{
+  "isPlaying": true,
+  "timeSincePlayStart": 12.5,
+  "currentFps": 59.8,
+  "memoryMB": 512,
+  "errorCount": 0,
+  "warningCount": 2,
+  "activeSceneName": "GameScene",
+  "timestamp": "2026-04-18T14:25:30Z"
+}
+```
+
+**Class:** `GetPlayModeStatusOp` in `Editor/Operations/PlayMode/`
+
+**Unity API:**
+- `EditorApplication.isPlaying`
+- `Time.realtimeSinceStartup` (elapsed time in play mode)
+- `Application.targetFrameRate` and last frame time for FPS calculation
+- `Profiler.GetTotalMemoryUsage()` (requires Development/Profiling build)
+- Console log introspection for error/warning counts
+- `SceneManager.GetActiveScene().name`
+
+**Transaction & Safety:** Read-only; no state change.
+
+---
+
+#### 4. Craft_SimulateInput
+
+Queue input events while in Play Mode (keyboard, mouse, gamepad).
+
+**MCP Tool Name:** `Craft_SimulateInput`
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Notes |
+|-----------|------|----------|---------|-------|
+| `device` | enum | yes | — | "keyboard" \| "mouse" \| "gamepad" |
+| `action` | enum | yes | — | "press" \| "release" \| "hold" \| "axis" \| "click" |
+| `control` | string | yes | — | Device control name: "w", "space", "leftButton", "rightStick", etc. |
+| `value` | float | no | 1.0 | For axis actions: analog value (0.0–1.0). For press/release: ignored. |
+| `durationMs` | int | no | 0 | For hold action: duration in milliseconds. |
+| `coords` | [float, float] | no | [0, 0] | For mouse: screen coordinates [x, y]. |
+
+**Returns:**
+
+```json
+{
+  "success": true,
+  "queued": true,
+  "simulatedAt": "2026-04-18T14:25:30Z",
+  "device": "keyboard",
+  "control": "w",
+  "action": "press",
+  "errors": []
+}
+```
+
+**Class:** `SimulateInputOp` in `Editor/Operations/PlayMode/`
+
+**Unity API:**
+- **Preferred:** `InputSystem.QueueStateEvent()` with `InputEventPtr` (modern InputSystem package)
+- **Fallback:** Direct property manipulation: `Keyboard.current.wKey.Press()` + `Keyboard.current.wKey.Release()` (if InputSystem supports this; verify)
+- **Legacy fallback:** `Event.KeyboardEvent()` for projects without InputSystem
+
+**Validation:**
+- Must be in Play Mode (call `Craft_GetPlayModeStatus()` internally or accept `inPlayModeOnly: true` param)
+- Control name must match device (e.g., "w" not valid for gamepad)
+
+**Transaction & Safety:** No rollback. Input events are fire-and-forget and cannot be undone in-engine.
+
+**Error Modes:**
+
+| Error | Detection | Response |
+|-------|-----------|----------|
+| Not in play mode | `!EditorApplication.isPlaying` | `success: false, error: "Play mode not active; enter play mode first"` |
+| Invalid control name | Control not found on device | `success: false, error: "Unknown control '{control}' for device '{device}'"` |
+| InputSystem missing | Package not imported | `success: false, error: "InputSystem package not found; install via UPM or use legacy Event API"` |
+| Coordinate out of bounds | Mouse coords beyond screen | `success: true` (clamp to valid range) |
+
+---
+
+#### 5. Craft_SampleProfileWindow
+
+Continuously sample performance metrics during Play Mode over a specified duration.
+
+**MCP Tool Name:** `Craft_SampleProfileWindow`
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Notes |
+|-----------|------|----------|---------|-------|
+| `durationSec` | float | yes | — | Total sampling window (1.0–600.0). |
+| `sampleRateHz` | float | no | 10.0 | Samples per second (0.5–100). |
+| `metrics` | string[] | no | ["fps", "cpu-ms", "gpu-ms", "memory-mb"] | Metrics to capture. Valid: "fps", "cpu-ms", "gpu-ms", "draw-calls", "triangles", "memory-mb", "gc-kb-per-frame". |
+
+**Returns:**
+
+```json
+{
+  "success": true,
+  "durationSec": 5.0,
+  "sampleCount": 50,
+  "samples": [
+    {
+      "ts": 0.0,
+      "fps": 60.0,
+      "cpuMs": 16.67,
+      "gpuMs": 8.5,
+      "drawCalls": 120,
+      "triangles": 85000,
+      "memoryMb": 512,
+      "gcKbPerFrame": 0.0
+    },
+    {
+      "ts": 0.1,
+      "fps": 59.8,
+      "cpuMs": 16.92,
+      ...
+    }
+  ],
+  "aggregates": {
+    "fps_avg": 59.5,
+    "fps_p95": 60.0,
+    "fps_min": 58.2,
+    "fps_max": 60.0,
+    "cpuMs_avg": 16.8,
+    "memoryMb_peak": 528,
+    "gcKbTotal": 45.2,
+    "crashCount": 0
+  },
+  "errors": []
+}
+```
+
+**Class:** `SampleProfileWindowOp` in `Editor/Operations/PlayMode/`
+
+**Unity API:**
+- `ProfilerRecorder` for frame time, draw calls, triangle count
+- `Profiler.GetTotalMemoryUsage()` for heap + GFX memory
+- `GC.GetTotalMemory()` for garbage collection tracking
+- Sample loop: `await Task.Delay((int)(1000.0 / sampleRateHz))` between samples
+- Console log polling for crash detection (exit code != 0 or "Fatal Error")
+
+**Validation:**
+- Must be in Play Mode (return error if not)
+- `durationSec` clamped to [1.0, 600.0]
+- `sampleRateHz` clamped to [0.5, 100.0]
+
+**Transaction & Safety:** Read-only; sampling does not mutate state. If Play Mode exits mid-sample, return partial data with warning.
+
+**Error Modes:**
+
+| Error | Detection | Response |
+|-------|-----------|----------|
+| Not in play mode | `!EditorApplication.isPlaying` at start | `success: false, error: "Play mode not active"` |
+| Play mode exits during sample | `!isPlaying` during loop | `success: true (partial), warnings: ["Play mode exited after {elapsed}s; returning partial data"]` |
+| Profiler unavailable | Development build not enabled | `success: false, error: "Profiler data unavailable; enable Development build or Editor profiler"` |
+| Invalid metric name | Metric not in predefined list | `success: false, error: "Unknown metric '{metric}'; valid: [fps, cpu-ms, ...]"` |
+
+**Aggregation Logic:**
+- `fps_avg`: Simple mean of FPS samples
+- `fps_p95`: 95th percentile (sorted samples, index = 0.95 * count)
+- `fps_min/max`: Min and max values
+- `memoryMb_peak`: Largest memory reading
+- `gcKbTotal`: Sum of all GC-per-frame values
+- `crashCount`: Count of error-level console entries during window
+
+---
+
+## v0.3 Roadmap — Asset Importer Specific Ops (Deferred, Lower Priority)
+
+Beyond `SetTextureImporter` and `SetModelImporter` (already specced), the logical next-phase asset family op is `Craft_SetAudioImporter`, enabling batch audio import automation for optimization workflows (compression, loading strategy, preload allocation).
+
+**Brief Spec:**
+
+**MCP Tool Name:** `Craft_SetAudioImporter`
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Notes |
+|-----------|------|----------|---------|-------|
+| `assetPath` | string | yes | — | Path to `.mp3`, `.wav`, `.ogg`, etc. |
+| `overrides` | object | no | {} | Importer settings to apply. |
+
+**Overrides Schema:**
+
+```
+{
+  "loadType": "DecompressOnLoad" | "CompressedInMemory" | "Streaming",
+  "compressionFormat": "PCM" | "Vorbis" | "ADPCM" | "MP3" | "VAG" | "HEVAG" | "XMA" | "GCADPCM" | "AT9",
+  "quality": 0.1 - 1.0 (float, compression ratio),
+  "forceToMono": boolean,
+  "loadInBackground": boolean,
+  "preloadAudioData": boolean,
+  "ambisonic": boolean,
+  "defaultSampleSettings": { /* platform-specific overrides */ }
+}
+```
+
+**Returns:** Same pattern as `SetTextureImporter` — `{appliedOverrides, previousSettings, cachedRollbackId}`.
+
+**Integration:** Transaction-safe with rollback via cached AudioImporter state (same pattern as texture/model ops).
+
+**Rationale:** Completes asset family, enables audio-specific CI/CD optimization (memory reduction via streaming, compression tuning).
+
+**Timeline:** Phase 3d (1 week, **deferred** — lower priority than PlayMode ops).
+
+---
+
+## Implementation Priority (Updated)
+
+### Phase 3a: Inspect Ops (Unblocks Screen Control + Cinematic Capture)
+
+**Timeline:** 2–3 weeks (no transaction complexity)
+
+**Operations:**
+1. `CaptureSceneView` → `CaptureGameView` → `CaptureUIPanel` (screenshot pipeline)
+2. `ReadConsoleLog` (debugging, post-execution validation)
+3. `ProfileCapture` (optional, for optimization workflows)
+
+**Enables:** screen-control.md pipeline, G13 vision analysis, pattern caching
+
+**Status:** Already specced in earlier sections
+
+---
+
+### Phase 3b: ImportSettings Ops (Unblocks Optimization Importer Batch)
+
+**Timeline:** 2 weeks (leverages existing transaction framework)
+
+**Operations:**
+1. `SetTextureImporter` (asset optimization, memory reduction)
+2. `SetModelImporter` (LOD, animation, rig configuration)
+
+**Enables:** Batch asset optimization, automation of import workflows
+
+**Status:** Already specced in earlier sections
+
+---
+
+### Phase 3c: PlayMode + Input Simulation + Sustained Profiling (NEW)
+
+**Timeline:** 3 weeks (new, enables playtest loop)
+
+**Operations:**
+1. `EnterPlayMode` (lifecycle control)
+2. `ExitPlayMode` (cleanup + state transition)
+3. `GetPlayModeStatus` (inspect-category readiness check)
+4. `SimulateInput` (keyboard/mouse/gamepad events, play-mode only)
+5. `SampleProfileWindow` (sustained performance sampling, aggregation)
+
+**Enables:**
+- Game-director playback automation (smoke tests, scenario replay)
+- Input-driven testing workflows (UI automation, gameplay flows)
+- Sustained performance profiling during test execution (detect FPS drops, memory leaks, GC spikes)
+- Integration with CI/CD playtest pipelines (automated QA, regression detection)
+
+**Dependencies:** PlayMode automation prerequisites (no external package dependencies beyond core InputSystem, which is standard in Unity 2022+)
+
+**Status:** Newly specced in this section
+
+---
+
+### Phase 3d: SetAudioImporter + Audio Family Completion (Deferred)
+
+**Timeline:** 1 week (lower priority, same pattern as texture/model ops)
+
+**Operation:**
+1. `SetAudioImporter` (compression, load strategy, preload settings)
+
+**Enables:** Complete asset importer family for CI/CD automation
+
+**Rationale:** Nice-to-have; audio optimization is less critical than playtest automation. Defer until phase 3c is tested in production.
+
+**Status:** Briefly specced above
+
+---
+
 ## Related Documents
 
 - [screen-control.md](screen-control.md) — Vision pipeline using Inspect ops

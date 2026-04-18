@@ -60,6 +60,7 @@ This plugin is the **co-developer layer on top**:
 | Auto-install via `manifest.json` | ❌ | ✅ `Assets_InstallUPM` as a CRAFT transaction (rollback-able) |
 | Specialist agent routing | ❌ (single agent) | ✅ D11/E9/E16/G13/B53/B37/B32/B19 via Jarvis dispatch |
 | Declarative intent API | ❌ (you write ops) | ✅ you write **goals**, plugin writes ops |
+| GDD → polished playable | ❌ | ✅ `Director_Ship(gddPath)` — DAG + dispatch + vision critique + playtest loop |
 
 Short version: Unity MCP lets Claude **move pieces**. This plugin lets Claude **design and ship features**.
 
@@ -83,6 +84,7 @@ Teaches Claude Code how to use CRAFT's MCP tools for safe, transaction-based Uni
 
 | Family | Triggers | Spec |
 |--------|----------|------|
+| **Game Director** | "given this GDD, build the game", "ship a playable demo" | [`tools/game-director.md`](skills/unity-craft/tools/game-director.md) |
 | **Design Import** | "import this claude design", "turn this design into a menu" | [`tools/import-design-bundle.md`](skills/unity-craft/tools/import-design-bundle.md) |
 | **Screen Control** | "look at the scene", "what's on screen", "fix the HUD layout" | [`tools/screen-control.md`](skills/unity-craft/tools/screen-control.md) |
 | **Cinematic** | "cinematic shot", "cutscene camera", "make this look cinematic" | [`tools/cinematic.md`](skills/unity-craft/tools/cinematic.md) |
