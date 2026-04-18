@@ -54,7 +54,10 @@ This plugin is the **co-developer layer on top**:
 | Post-processing Volume presets | ❌ | ✅ 6 presets (Cinematic/Stylized/Realistic/Anime/Horror/Dreamy), URP+HDRP auto-detect |
 | Mobile / desktop / console quality presets | ❌ | ✅ one-line apply + before/after deltas |
 | Autonomous vision-driven action | ❌ | ✅ `ActOnScreen(imageRef, goal)` → CRAFT ops, **never tells user to click** |
-| Specialist agent routing | ❌ (single agent) | ✅ D11/E9/G13/B53/B37/B32/B19 via Jarvis dispatch |
+| Asset Store library awareness | ❌ | ✅ `Assets_ScanLibrary` reads local cache, knows what you already own |
+| UPM / OpenUPM / Git UPM research | ❌ | ✅ `Assets_Suggest(source="auto")` — official Unity packages first, OpenUPM next, Asset Store last |
+| Auto-install via `manifest.json` | ❌ | ✅ `Assets_InstallUPM` as a CRAFT transaction (rollback-able) |
+| Specialist agent routing | ❌ (single agent) | ✅ D11/E9/E16/G13/B53/B37/B32/B19 via Jarvis dispatch |
 | Declarative intent API | ❌ (you write ops) | ✅ you write **goals**, plugin writes ops |
 
 Short version: Unity MCP lets Claude **move pieces**. This plugin lets Claude **design and ship features**.
@@ -83,6 +86,7 @@ Teaches Claude Code how to use CRAFT's MCP tools for safe, transaction-based Uni
 | **Screen Control** | "look at the scene", "what's on screen", "fix the HUD layout" | [`tools/screen-control.md`](skills/unity-craft/tools/screen-control.md) |
 | **Cinematic** | "cinematic shot", "cutscene camera", "make this look cinematic" | [`tools/cinematic.md`](skills/unity-craft/tools/cinematic.md) |
 | **Optimization** | "optimize this scene", "reduce draw calls", "mobile performance" | [`tools/optimization.md`](skills/unity-craft/tools/optimization.md) |
+| **Asset Store** | "do I have an asset for this", "free alternative to X", "find a UPM package for Y" | [`tools/asset-store.md`](skills/unity-craft/tools/asset-store.md) |
 
 ---
 

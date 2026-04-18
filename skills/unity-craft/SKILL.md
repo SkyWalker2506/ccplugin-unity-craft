@@ -27,6 +27,7 @@ Four tool families extend core CRAFT scene ops:
 | **Screen Control** | [`tools/screen-control.md`](tools/screen-control.md) | G13 vision-action-operator | Capture + analyze + act (autonomous, no user instructions) |
 | **Cinematic** | [`tools/cinematic.md`](tools/cinematic.md) | E9 unity-cinematic-director | Cinemachine VCams + PostFX presets + shot capture |
 | **Optimization** | [`tools/optimization.md`](tools/optimization.md) | B53 unity-performance-analyzer | Profile + batch + textures + LOD + quality + purge |
+| **Asset Store** | [`tools/asset-store.md`](tools/asset-store.md) | E16 asset-store-curator | Library inventory + UPM/OpenUPM/Git research + install |
 
 Read the relevant `tools/*.md` file before invoking a capability — each has signature, pipeline, dispatch protocol, and verification.
 

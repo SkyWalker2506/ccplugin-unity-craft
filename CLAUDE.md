@@ -10,6 +10,7 @@ Unity MCP + CRAFT uzerinden:
 - **Screen Control:** Game/Scene view capture → vision analizi → autonomous CRAFT ops (kullanıcıya "click X" yasak)
 - **Cinematic:** Cinemachine VCam + PostFX preset'leri + shot capture
 - **Optimization:** Profiler analizi + batching + texture/LOD/shader optimizasyonu + quality preset'leri
+- **Asset Store:** Lokal cache envanteri + UPM registry (`com.unity.*`) + OpenUPM + Git UPM + Asset Store araştırması ve auto-install
 
 Detay: `skills/unity-craft/SKILL.md` + `skills/unity-craft/tools/*.md`
 
@@ -23,6 +24,7 @@ Detay: `skills/unity-craft/SKILL.md` + `skills/unity-craft/tools/*.md`
 | Runtime camera (split-screen, stack) | B37 unity-camera-systems | gpt-5.4 |
 | Performance (holistic cross-platform) | B53 unity-performance-analyzer | gemini-3.1-pro |
 | Performance (mobile-specific) | B32 unity-mobile-optimizer | gpt-5.4 |
+| Asset inventory + UPM/OpenUPM/Asset Store araştırma | E16 asset-store-curator | gemini-3.1-pro |
 | Gameplay kodu | B19 unity-developer | gpt-5.4 |
 
 Claude orchestration minimum — implementation Gemini/GPT agent'larına yönlendirilir.
