@@ -1,3 +1,17 @@
+# EVALUATION — bloodborne-jam demo
+
+## Evaluation Criteria
+
+| Dimension | Target | Actual |
+|-----------|--------|--------|
+| Tool coverage | ≥ 70% of GDD features auto | ~80% |
+| Time saved vs. manual | ≥ 50% | ~73% (25m vs. 90m) |
+| B19 dispatch count | ≤ 5 codex calls | 7 gameplay scripts |
+| Missing tools identified | — | 3 (Input_CreateDualScheme, Combat_Setup, Match_Configure) |
+| Verdict | jam-shippable | ✅ Covered — jam-shippable in 25 min |
+
+---
+
 # Değerlendirme: Bloodborne Jam GDD vs. Mevcut unity-craft Altyapısı
 
 **Tarih:** 2026-04-18  

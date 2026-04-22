@@ -217,6 +217,20 @@ ccplugin install unity-craft
 
 ---
 
+## Install check
+
+Verify your stack is healthy with one command:
+
+```bash
+# From Claude Code — checks craft-unity MCP bridge, CRAFT ops, and plugin install
+python3 ~/.claude/plugins/unity-craft/scripts/scan_asset_library.py --force 2>&1 | head -5
+# Expected: {"scanned_at": "...", "cache_root": "...", ...}
+```
+
+If you see `cache_not_found`: open Unity 6, import at least one Asset Store package to create the cache dir.
+
+---
+
 ## License
 
 MIT

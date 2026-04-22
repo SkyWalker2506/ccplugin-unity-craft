@@ -417,3 +417,17 @@ Match_SetupVictoryUI(winnerLabel: "ZAFER {n}", restartPrompt: "R ile yeniden",
 Match_SetupScoreboard(players: [...], showHP: true, showScore: true,
   showTimer: true, position: "top")
 ```
+
+## Presets
+
+| Preset | Genre | File |
+|--------|-------|------|
+| `wave-survival` | Escalating waves, shop, boss waves | `presets/match/wave-survival.json` |
+| `racing` | Laps, checkpoints, items, AI opponents | `presets/match/racing.json` |
+| `team-deathmatch` | 2-team kill limit + time limit, respawn | `presets/match/team-deathmatch.json` |
+| `puzzle-points` | Move-limited puzzle, stars, hints | `presets/match/puzzle-points.json` |
+
+Usage:
+```
+Match_Setup(preset: "wave-survival")  // loads presets/match/wave-survival.json
+```

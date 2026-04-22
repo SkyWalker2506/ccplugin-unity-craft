@@ -535,3 +535,25 @@ Combat_SetupSkill(
   targetLayer: "Enemy"
 )
 ```
+
+
+## Presets
+
+Load a combat preset to configure hitbox, damage, stamina, and animation defaults at once:
+
+| Preset | Genre | File |
+|--------|-------|------|
+| `melee-rpg` | Action RPG — heavy attacks, stamina, dodge, block | `presets/combat/melee-rpg.json` |
+| `shooter-fps` | FPS — hitscan, recoil, reload, headshot multiplier | `presets/combat/shooter-fps.json` |
+| `brawler` | Beat-em-up — combo chains, juggle, grab, finisher | `presets/combat/brawler.json` |
+| `tower-defense` | TD — turret targeting, splash, slow/poison/freeze | `presets/combat/tower-defense.json` |
+
+Usage:
+```
+Combat_Setup(
+  gameObject: "Player",
+  preset: "melee-rpg"  // loads presets/combat/melee-rpg.json defaults
+)
+```
+
+Override any preset field by specifying it explicitly in the call.
