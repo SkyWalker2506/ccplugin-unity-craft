@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "combat.schema.json",
+  "title": "Combat Preset",
+  "description": "Schema for ccplugin-unity-craft combat system presets",
+  "type": "object",
+  "required": ["preset", "description", "hitbox", "damage"],
+  "properties": {
+    "preset": { "type": "string" },
+    "description": { "type": "string" },
+    "hitbox": {
+      "type": "object",
+      "required": ["type", "triggerLayer"],
+      "properties": {
+        "type": { "type": "string", "enum": ["CapsuleCollider", "BoxCollider", "SphereCollider", "SphereOverlap", "Raycast"] },
+        "triggerLayer": { "type": "string" },
+        "activeFrames": {
+          "type": "object",
+          "properties": {
+            "start": { "type": "number", "minimum": 0 },
+            "end": { "type": "number", "minimum": 0 }
+          }
+        },
+        "radius": { "type": "number", "minimum": 0 },
+        "height": { "type": "number", "minimum": 0 },
+        "range": { "type": "number", "minimum": 0 },
+        "size": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+        "offset": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+        "spreadAngle": { "type": "number", "minimum": 0 },
+        "updateRate": { "type": "number", "minimum": 0 }
+      }
+    },
+    "damage": {
+      "type": "object",
+      "required": ["base"],
+      "properties": {
+        "base": { "type": "number", "minimum": 0 },
+        "critMultiplier": { "type": "number", "minimum": 1 },
+        "critChance": { "type": "number", "minimum": 0, "maximum": 1 },
+        "knockbackForce": { "type": "number" },
+        "knockbackUp": { "type": "number" },
+        "stunDuration": { "type": "number", "minimum": 0 }
+      }
+    },
+    "animations": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

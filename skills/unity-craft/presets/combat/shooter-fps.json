@@ -1,0 +1,42 @@
+{
+  "$schema": "../schema/combat.schema.json",
+  "preset": "shooter-fps",
+  "description": "First-person shooter combat — hitscan + projectile, recoil, reload, headshot",
+  "hitbox": {
+    "type": "Raycast",
+    "triggerLayer": "Hitscan",
+    "range": 200,
+    "spreadAngle": 1.5
+  },
+  "damage": {
+    "base": 30,
+    "headshotMultiplier": 2.5,
+    "falloffStart": 50,
+    "falloffEnd": 120,
+    "falloffMin": 0.5,
+    "knockbackForce": 1.0,
+    "knockbackUp": 0,
+    "stunDuration": 0
+  },
+  "weapon": {
+    "fireRate": 600,
+    "magazineSize": 30,
+    "reloadTime": 2.2,
+    "recoilPitch": 0.8,
+    "recoilYaw": 0.3,
+    "adsSpeedMultiplier": 0.6,
+    "adsSpread": 0.3
+  },
+  "projectile": {
+    "speed": 300,
+    "gravity": 0,
+    "penetration": false
+  },
+  "animations": {
+    "fire": "Fire_Hip",
+    "fireSights": "Fire_ADS",
+    "reload": "Reload_Standard",
+    "hit": "Hit_Flinch",
+    "death": "Death_Ragdoll"
+  }
+}

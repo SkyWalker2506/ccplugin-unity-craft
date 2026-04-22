@@ -1,0 +1,43 @@
+{
+  "$schema": "../schema/combat.schema.json",
+  "preset": "brawler",
+  "description": "Beat-em-up brawler — combo chains, juggle, grab, environmental hazards",
+  "hitbox": {
+    "type": "BoxCollider",
+    "triggerLayer": "Attack",
+    "activeFrames": { "start": 0.08, "end": 0.25 },
+    "size": [0.8, 1.0, 0.6],
+    "offset": [0, 0.5, 0.5]
+  },
+  "damage": {
+    "base": 15,
+    "comboMultipliers": [1.0, 1.0, 1.2, 1.5, 2.0],
+    "knockbackForce": 8.0,
+    "knockbackUp": 3.0,
+    "stunDuration": 0.5,
+    "launchForce": 12.0
+  },
+  "combo": {
+    "windowBetweenHits": 0.6,
+    "maxChain": 5,
+    "resetOnMiss": true,
+    "finisherAtMax": true
+  },
+  "grab": {
+    "range": 1.5,
+    "holdDuration": 1.0,
+    "throwForce": 10.0,
+    "throwDamage": 20
+  },
+  "animations": {
+    "combo1": "Punch_Light",
+    "combo2": "Punch_Cross",
+    "combo3": "Kick_Side",
+    "combo4": "Uppercut",
+    "finisher": "Slam_Down",
+    "grab": "Grab_Front",
+    "throw": "Throw_Forward",
+    "hit": "Hit_Stagger_Light",
+    "death": "Collapse"
+  }
+}

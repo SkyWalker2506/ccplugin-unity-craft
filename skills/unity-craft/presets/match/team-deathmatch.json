@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema/match.schema.json",
+  "preset": "team-deathmatch",
+  "description": "Team deathmatch — 2 teams, kill limit or time limit, respawn, score tracking",
+  "winCondition": "score_limit_or_time",
+  "loseCondition": "opposing_team_wins",
+  "teams": {
+    "count": 2,
+    "names": ["Red", "Blue"],
+    "colors": ["#FF4444", "#4488FF"],
+    "maxPlayersPerTeam": 4,
+    "balanceAI": true
+  },
+  "match": {
+    "killLimit": 30,
+    "timeLimitSeconds": 600,
+    "respawnDelay": 3.0,
+    "respawnInvincibility": 2.0,
+    "friendlyFire": false
+  },
+  "scoring": {
+    "killScore": 1,
+    "assistScore": 0,
+    "suicidePenalty": -1,
+    "teamKillPenalty": -2
+  },
+  "ui": {
+    "scoreboardKey": "Tab",
+    "killFeed": true,
+    "minimap": true,
+    "teamScoreHUD": true,
+    "matchTimer": true
+  },
+  "restartBehavior": "return_to_lobby"
+}

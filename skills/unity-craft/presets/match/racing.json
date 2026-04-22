@@ -1,0 +1,34 @@
+{
+  "$schema": "../schema/match.schema.json",
+  "preset": "racing",
+  "description": "Racing match — laps, position tracking, item pickups, finish line trigger",
+  "winCondition": "finish_first",
+  "loseCondition": "time_expired",
+  "race": {
+    "laps": 3,
+    "checkpoints": 8,
+    "timeLimit": 300,
+    "aiOpponents": 7,
+    "aiDifficulty": "medium"
+  },
+  "scoring": {
+    "positionPoints": [10, 7, 5, 3, 2, 1, 0, 0],
+    "lapTimeBonus": true,
+    "driftScore": true,
+    "driftScoreMultiplier": 2
+  },
+  "items": {
+    "enabled": true,
+    "spawnRate": 0.3,
+    "types": ["boost", "shield", "missile", "oil_slick"],
+    "inventorySlots": 1
+  },
+  "ui": {
+    "minimap": true,
+    "lapCounter": true,
+    "positionDisplay": true,
+    "speedometer": true,
+    "raceTimer": true
+  },
+  "restartBehavior": "same_race"
+}

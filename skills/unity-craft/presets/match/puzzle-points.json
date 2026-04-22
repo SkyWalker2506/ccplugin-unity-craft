@@ -1,0 +1,41 @@
+{
+  "$schema": "../schema/match.schema.json",
+  "preset": "puzzle-points",
+  "description": "Puzzle match — solve N puzzles per level, star rating, time/move limits, hint system",
+  "winCondition": "all_puzzles_solved",
+  "loseCondition": "out_of_moves_or_time",
+  "puzzle": {
+    "puzzlesPerLevel": 1,
+    "totalLevels": 20,
+    "moveLimitEnabled": true,
+    "baseMovLimit": 30,
+    "timeLimitEnabled": false,
+    "timeLimitSeconds": 120
+  },
+  "scoring": {
+    "completionScore": 100,
+    "movePenaltyPerOver": 10,
+    "timeBonus": false,
+    "starThresholds": [100, 80, 50],
+    "stars": 3
+  },
+  "hints": {
+    "enabled": true,
+    "hintCount": 3,
+    "hintCooldown": 30,
+    "hintPenalty": 20
+  },
+  "progression": {
+    "unlockOnStars": 1,
+    "saveHighScore": true,
+    "retryAllowed": true
+  },
+  "ui": {
+    "moveCounter": true,
+    "starPreview": true,
+    "hintButton": true,
+    "levelSelect": true,
+    "timer": false
+  },
+  "restartBehavior": "retry_level"
+}

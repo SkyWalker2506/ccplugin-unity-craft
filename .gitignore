@@ -1,4 +1,4 @@
 
-# Forge artifacts
-forge/
-analysis/
+# Screenshots / browser artifacts (not source)
+skills/unity-craft/*.png
+skills/unity-craft/.playwright-mcp/

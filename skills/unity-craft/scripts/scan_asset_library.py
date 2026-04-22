@@ -192,8 +192,8 @@ def main():
     parser = argparse.ArgumentParser(description="Scan Unity Asset Store local cache")
     parser.add_argument("--output-json", type=str, default=None,
                         help="Output file path (default: stdout)")
-    parser.add_argument("--refresh", action="store_true",
-                        help="Force refresh (ignore cache)")
+    parser.add_argument("--refresh", "--force", action="store_true",
+                        help="Force refresh — bypass 24h cache (also accepted as --force)")
 
     args = parser.parse_args()
 

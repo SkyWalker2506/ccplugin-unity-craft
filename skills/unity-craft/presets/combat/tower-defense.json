@@ -1,0 +1,50 @@
+{
+  "$schema": "../schema/combat.schema.json",
+  "preset": "tower-defense",
+  "description": "Tower defense combat — turret targeting, projectiles, splash, slow, range falloff",
+  "hitbox": {
+    "type": "SphereOverlap",
+    "triggerLayer": "Enemy",
+    "radius": 8.0,
+    "updateRate": 0.25
+  },
+  "damage": {
+    "base": 20,
+    "splashRadius": 2.0,
+    "splashFalloff": 0.5,
+    "knockbackForce": 0,
+    "stunDuration": 0,
+    "dotDamage": 0,
+    "dotDuration": 0
+  },
+  "targeting": {
+    "priority": "closest",
+    "priorityOptions": ["closest", "first", "last", "strongest", "weakest"],
+    "rotateSpeed": 120,
+    "predictiveAim": true
+  },
+  "projectile": {
+    "speed": 15,
+    "gravity": 0,
+    "penetration": false,
+    "homing": false
+  },
+  "fireRate": 1.2,
+  "upgrade": {
+    "levels": 3,
+    "damagePerLevel": 10,
+    "rangePerLevel": 1.5,
+    "fireRatePerLevel": 0.2
+  },
+  "effects": {
+    "slow": { "speedMultiplier": 0.6, "duration": 2.0 },
+    "poison": { "dotDamage": 5, "dotInterval": 0.5, "dotDuration": 3.0 },
+    "freeze": { "stunDuration": 1.5, "breakOnDamage": true }
+  },
+  "animations": {
+    "fire": "Tower_Fire",
+    "hit": "Tower_Impact",
+    "idle": "Tower_Idle",
+    "place": "Tower_Build"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "../schema/combat.schema.json",
+  "preset": "melee-rpg",
+  "description": "RPG melee combat — heavy attacks, stamina, dodge roll, block",
+  "hitbox": {
+    "type": "CapsuleCollider",
+    "triggerLayer": "Attack",
+    "activeFrames": { "start": 0.1, "end": 0.4 },
+    "offset": [0, 0, 0.6],
+    "radius": 0.5,
+    "height": 1.2
+  },
+  "damage": {
+    "base": 25,
+    "critMultiplier": 2.0,
+    "critChance": 0.1,
+    "knockbackForce": 5.0,
+    "knockbackUp": 1.0,
+    "stunDuration": 0.3
+  },
+  "stamina": {
+    "max": 100,
+    "regenRate": 15,
+    "regenDelay": 1.5,
+    "attackCost": 20,
+    "dodgeCost": 30,
+    "blockCostPerHit": 10
+  },
+  "dodge": {
+    "speed": 8.0,
+    "duration": 0.35,
+    "iFrames": 0.25,
+    "cooldown": 0.8
+  },
+  "block": {
+    "damageReduction": 0.7,
+    "staminaDrainRate": 8,
+    "perfectBlockWindow": 0.15
+  },
+  "animations": {
+    "attack": "Attack_Heavy",
+    "hit": "Hit_Stagger",
+    "dodge": "Roll_Forward",
+    "block": "Block_Idle",
+    "death": "Death_Fall"
+  }
+}
