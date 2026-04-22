@@ -290,3 +290,20 @@ claude
 ```
 
 Good luck! 🎮
+
+---
+
+## Template GDDs
+
+Use these pre-built GDDs to start a new game without writing your own GDD from scratch:
+
+| Template | Genre | Features | File |
+|----------|-------|----------|------|
+| Platformer | 2D side-scroller | Jump, double-jump, lives, 10 levels, 3 worlds | `templates/platformer-gdd.md` |
+| FPS Wave | First-person wave survival | 10 waves, weapon shop, 4 enemy types, boss | `templates/fps-gdd.md` |
+| Puzzle | Grid-based puzzle | Move limit, star rating, hints, 20 levels | `templates/puzzle-gdd.md` |
+
+To use a template:
+1. Copy the file: `cp demo/templates/platformer-gdd.md demo/my-platformer-gdd.md`
+2. Edit the bracketed fields
+3. Run: `Director_Ship(gdd: "demo/my-platformer-gdd.md")`
